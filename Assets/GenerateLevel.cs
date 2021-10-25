@@ -43,7 +43,7 @@ public class GenerateLevel : MonoBehaviour
         loaded = true;
     }
 
-    private void RecursiveGeneration(int x, int z, int currentDirection, int depth = 0, int parentX = 0, int parentZ = 0) {
+    private void RecursiveGeneration(int x, int z, int currentDirection, int depth = 0) {
         // check if that component was already generated
         if (visited.ContainsKey((x, z))) {
             return;
@@ -87,7 +87,7 @@ public class GenerateLevel : MonoBehaviour
         // generate neighbouring pieces
         for (int i = 0; i < 4; ++i) {
             if (nextDirections[i] == '1')
-                RecursiveGeneration(x + this.directionMovements[i].Item1, z + this.directionMovements[i].Item2, i, depth + 1, x, z);
+                RecursiveGeneration(x + this.directionMovements[i].Item1, z + this.directionMovements[i].Item2, i, depth + 1);
         }
     }
 
