@@ -36,18 +36,19 @@ public class GenerateLevel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        difficulty = Mathf.Max(0, Mathf.Min(difficulty, upperDifficultyBound));
+        difficulty = Mathf.Max(1, Mathf.Min(difficulty, upperDifficultyBound));
         visited = new Dictionary<(int, int), bool>();
         map = new Dictionary<(int, int), MapInfo>();
         RecursiveGeneration(0, 0, -1);
         loaded = true;
     }
 
-    private void RecursiveGeneration(int x, int z, int currentDirection, int depth = 0) {
+    private void RecursiveGeneration(int x, int z, int currentDirection, int depth = 0, int parentX = 0, int parentZ = 0) {
         // check if that component was already generated
         if (visited.ContainsKey((x, z))) {
             return;
         }
+
         // mark current location as generated
         visited.Add((x, z), true);
         string nextDirections = "0000";
@@ -61,7 +62,6 @@ public class GenerateLevel : MonoBehaviour
             // generate 2nd+ piece
 
             int chosenPieceIndex = pieces.Length - 1;
-
             currentDirection = (currentDirection + 2) % 4; // we must rotate the down free spot to match the current facing direction
 
             // in this case, generate a deadend
@@ -75,23 +75,19 @@ public class GenerateLevel : MonoBehaviour
                     chosenPieceIndex = Random.Range(0, pieces.Length - 2);
                     rotationDir = Random.Range(0, 3);
                     nextDirections = Rotate(freePaths[chosenPieceIndex], rotationDir);
-                    if (nextDirections[(currentDirection + 2) % 4] == '1')
+                    if (nextDirections[currentDirection] == '1')
                         break;
                 }
                 Instantiate(pieces[chosenPieceIndex], new Vector3(x, 0, z), Quaternion.Euler(0, rotationDir * 90f, 0));
             }
 
             AddInfoToMap(x, z, nextDirections);
-
-            // stop with the deadend
-            if (chosenPieceIndex == pieces.Length - 1)
-                return;
         }
 
         // generate neighbouring pieces
         for (int i = 0; i < 4; ++i) {
             if (nextDirections[i] == '1')
-                RecursiveGeneration(x + this.directionMovements[i].Item1, z + this.directionMovements[i].Item2, i, depth + 1);
+                RecursiveGeneration(x + this.directionMovements[i].Item1, z + this.directionMovements[i].Item2, i, depth + 1, x, z);
         }
     }
 
@@ -100,11 +96,11 @@ public class GenerateLevel : MonoBehaviour
             case 0:
                 return connectivity;
             case 1:
-                return connectivity.Substring(1, 3) + connectivity[0];
+                return connectivity[3] + connectivity.Substring(0, 3);
             case 2:
                 return connectivity.Substring(2, 2) + connectivity.Substring(0, 2);
             case 3:
-                return connectivity[3] + connectivity.Substring(0, 3);
+                return connectivity.Substring(1, 3) + connectivity[0];
             default:
                 return null;
         }
