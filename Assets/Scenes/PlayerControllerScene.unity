@@ -1422,7 +1422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0350ebac9a760ce469829a9cda138346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.05
+  moveSpeed: 0.2
   speedMultipler: 1
   moveDir: {x: 0, y: 0, z: 0}
   rigidbody: {fileID: 2035326534}
