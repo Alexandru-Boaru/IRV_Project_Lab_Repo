@@ -1,9 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class AINode
 {
+
 	public bool walkable;
 	public Vector3 worldPosition;
 	public int gridX;
@@ -13,7 +13,7 @@ public class AINode
 	public int hCost;
 	public AINode parent;
 
-	public AINode(bool _walkable, Vector3 _worldPos, int _gridX = 0, int _gridY = 0)
+	public AINode(bool _walkable, Vector3 _worldPos, int _gridX, int _gridY)
 	{
 		walkable = _walkable;
 		worldPosition = _worldPos;
