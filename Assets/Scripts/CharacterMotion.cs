@@ -18,6 +18,9 @@ public class CharacterMotion : MonoBehaviour
     public float jumpUpPower;
     public float jumpPower;
 
+    public float slopeForce;
+    public float slopeForceRayLength;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,15 +54,20 @@ public class CharacterMotion : MonoBehaviour
 
     public void ApplyMovement()
     {
-
-        float velY = rigidbody.velocity.y;
+        Vector3 finalMoveDir = moveDir * moveSpeed * speedMultipler;
+        if (moveDir!=Vector3.zero && rigidbody.velocity.y<0 && OnSlope())
+        {
+            finalMoveDir += Vector3.down * slopeForce;
+        }
         /*
         rigidbody.velocity = moveDir * moveSpeed * Time.deltaTime;
         rigidbody.velocity = new Vector3(rigidbody.velocity.x,
                                          velY,
                                          rigidbody.velocity.z);
                                          */
-        rigidbody.MovePosition(transform.position + moveDir * moveSpeed * speedMultipler);
+        float velY = rigidbody.velocity.y;
+
+        rigidbody.MovePosition(transform.position + finalMoveDir);
         rigidbody.velocity = new Vector3(rigidbody.velocity.x,
                                          velY,
                                          rigidbody.velocity.z);
@@ -100,5 +108,23 @@ public class CharacterMotion : MonoBehaviour
                     */
             }
         }
+        Gizmos.color = Color.blue;
+        rayOrigin = transform.position + slopeForceRayLength * Vector3.up + groundOffset;
+        Gizmos.DrawLine(rayOrigin, rayOrigin + Vector3.down * 2f * slopeForceRayLength);
     }
+
+    public bool OnSlope()
+    {
+        if (!grounded)
+            return false;
+        RaycastHit hit;
+        Vector3 rayOrigin = transform.position + slopeForceRayLength * Vector3.up + groundOffset;
+        if (Physics.Raycast(rayOrigin, Vector3.down, out hit, 2f * slopeForceRayLength))
+        {
+            if (hit.normal != Vector3.up)
+                return true;
+        }
+        return false;
+    }
+
 }

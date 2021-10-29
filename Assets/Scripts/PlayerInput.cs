@@ -9,6 +9,10 @@ public class PlayerInput : MonoBehaviour
     public bool mustJump;
     public bool mustRun;
 
+    public bool shootOnce;
+    public bool shootAuto;
+    public bool mustRecharge;
+
     public bool vrEnabled;
     // Start is called before the first frame update
     void Start()
@@ -29,6 +33,15 @@ public class PlayerInput : MonoBehaviour
                 mustRun = true;
             else
                 mustRun = false;
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+                shootOnce = true;
+            if (Input.GetKey(KeyCode.Mouse0))
+                shootAuto = true;
+            else
+                shootAuto = false;
+            if (Input.GetKeyDown(KeyCode.R))
+                mustRecharge = true;
+
         }
     }
 
