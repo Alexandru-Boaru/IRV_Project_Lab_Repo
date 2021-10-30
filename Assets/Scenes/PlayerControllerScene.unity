@@ -5476,7 +5476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   origin: {fileID: 56896481}
   shootDir: {x: 0, y: 0, z: 1}
-  damage: 3
+  damage: 5
   fireRate: 0.2
   fireRateCooldown: 0
   range: 186.99
@@ -5489,7 +5489,7 @@ MonoBehaviour:
   targetLayers:
     serializedVersion: 2
     m_Bits: 1792
-  numberOfRounds: 1
+  numberOfRounds: 10
   ammoSize: 1000
   ammoLeft: 0
   bulletHolePrefab: {fileID: 5318123571427424048, guid: e29ad01da0b07ff48aa97e556e1fe490, type: 3}
