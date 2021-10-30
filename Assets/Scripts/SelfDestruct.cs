@@ -26,10 +26,11 @@ public class SelfDestruct : MonoBehaviour
             {
                 foreach(Renderer r in renderers)
                 {
-                    if(r is SpriteRenderer)
+                    if (r is SpriteRenderer)
                         ((SpriteRenderer)r).color = new Color(((SpriteRenderer)r).color.r, ((SpriteRenderer)r).color.g, ((SpriteRenderer)r).color.b, t / timeToFade);
                     else
-                        r.material.color = new Color(r.material.color.r, r.material.color.g, r.material.color.b, t / timeToFade);
+                        r.material.SetFloat("_Alpha", t / timeToFade);
+                //r.material.color = new Color(r.material.color.r, r.material.color.g, r.material.color.b, t / timeToFade);
                 }
                 //renderer.material.color = new Color(renderer.material.color.r, renderer.material.color.g, renderer.material.color.b, t / timeToFade);
                 t -= Time.deltaTime;
