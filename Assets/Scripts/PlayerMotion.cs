@@ -24,9 +24,10 @@ public class PlayerMotion : CharacterMotion
             ApplyJump();
         input.ResetJump();
         moveDir = (input.right * camera.right + input.forward * camera.forward).normalized;
+        
         moveDir = Vector3.ProjectOnPlane(moveDir, Vector3.up).normalized; // y e 0, miscare in xOz
-                                                                          //transform.position += moveDir * Time.deltaTime * moveSpeed; // pentru non-rigidBody
-                                                                          //moveDir *= Mathf.Abs(input.right + input.forward / 2);
+                                                                            //transform.position += moveDir * Time.deltaTime * moveSpeed; // pentru non-rigidBody
+                                                                            //moveDir *= Mathf.Abs(input.right + input.forward / 2);
         if ((input.right * camera.right + input.forward * camera.forward).magnitude < 0.95)
         {
             moveDir *= (input.right * camera.right + input.forward * camera.forward).magnitude;

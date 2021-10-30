@@ -21,10 +21,14 @@ public class CharacterMotion : MonoBehaviour
     public float slopeForce;
     public float slopeForceRayLength;
 
+    public bool floatingCharacter;
+
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
+        if (floatingCharacter)
+            rigidbody.useGravity = false;
         //capsule = GetComponent<CapsuleCollider>();
     }
 
@@ -68,9 +72,12 @@ public class CharacterMotion : MonoBehaviour
         float velY = rigidbody.velocity.y;
 
         rigidbody.MovePosition(transform.position + finalMoveDir);
-        rigidbody.velocity = new Vector3(rigidbody.velocity.x,
-                                         velY,
-                                         rigidbody.velocity.z);
+        if (!floatingCharacter)
+        {
+            rigidbody.velocity = new Vector3(rigidbody.velocity.x,
+                                             velY,
+                                             rigidbody.velocity.z);
+        }
 
     }
 

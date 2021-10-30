@@ -6,6 +6,7 @@ public class PlayerInput : MonoBehaviour
 {
     public float forward;
     public float right;
+    public float up;
     public bool mustJump;
     public bool mustRun;
 
@@ -27,6 +28,7 @@ public class PlayerInput : MonoBehaviour
         {
             forward = Input.GetAxis("Vertical");
             right = Input.GetAxis("Horizontal");
+            up = Input.GetAxis("UpAxis");
             if (Input.GetKeyDown(KeyCode.Space))
                 mustJump = true;
             if (Input.GetKey(KeyCode.LeftShift))
