@@ -111,7 +111,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 9fa4df29a0aba004387b35766dc73576, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 60bbbda0b370bbd4c97a5a579c076c41, type: 2}
+      objectReference: {fileID: 2100000, guid: f24e31389651aba4d9ac19dcc95dec05, type: 2}
     - target: {fileID: 919132149155446097, guid: 9fa4df29a0aba004387b35766dc73576, type: 3}
       propertyPath: m_Name
       value: CrateWithMat Variant
