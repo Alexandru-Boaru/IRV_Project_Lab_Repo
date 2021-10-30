@@ -6,7 +6,12 @@ public class GenerateLevel : MonoBehaviour
 {
     public int difficulty = 1;
     public int upperDifficultyBound = 30;
+    public int piecesSize = 30;
+    public int requiredCollectables; // number of collectibles needed to collect in order to progress
+    public int maxCollectables; // maximum number of spawned collectibles
     public GameObject[] pieces; // 0 is the default connecting starting piece, the last is the deadend
+
+    public GameObject collectable;
     public string[] freePaths;
     /*
         Strings are related to the connectivity of the pieces
@@ -22,13 +27,14 @@ public class GenerateLevel : MonoBehaviour
 
     private bool loaded = false; // true when the procedural generation is over
 
-    private (int, int)[] directionMovements = {(0, -5), (-5, 0), (0, 5), (5, 0)}; // how to advance rendering
+    private (int, int)[] directionMovements; // how to advance rendering
     public enum MapInfo
     {
         BLOCKED,
         FREE,
         ENEMY,
-        PLAYER
+        PLAYER,
+        COLLECTABLE,
     }
 
     public Dictionary<(int, int), MapInfo> map;
@@ -39,7 +45,9 @@ public class GenerateLevel : MonoBehaviour
         difficulty = Mathf.Max(1, Mathf.Min(difficulty, upperDifficultyBound));
         visited = new Dictionary<(int, int), bool>();
         map = new Dictionary<(int, int), MapInfo>();
+        directionMovements = new (int, int)[]{(0, -piecesSize), (-piecesSize, 0), (0, piecesSize), (piecesSize, 0)};
         RecursiveGeneration(0, 0, -1);
+        GenerateCollectibles();
         loaded = true;
     }
 
@@ -91,6 +99,20 @@ public class GenerateLevel : MonoBehaviour
         }
     }
 
+    private void GenerateCollectibles() {
+        var locations = new List<(int, int)>(map.Keys);
+        for (int i = 0; i < maxCollectables; ++i) {
+            int posX, posZ;
+            (posX, posZ) = locations[Random.Range(0, map.Keys.Count)];
+            if (map[(posX, posZ)] == MapInfo.FREE) {
+                Instantiate(collectable, new Vector3(posX, 3.0f, posZ), Quaternion.identity);
+                map[(posX, posZ)] = MapInfo.COLLECTABLE;
+            } else {
+                --i;
+            }
+        }
+    }
+
     private string Rotate(string connectivity, int dir) {
         switch (dir) {
             case 0:
@@ -107,24 +129,69 @@ public class GenerateLevel : MonoBehaviour
     }
 
     private void AddInfoToMap(int x, int z, string connectivity) {
+        int minMaxBounds = (this.piecesSize - 1) / 2;
+        int guaranteedFreeBounds = (this.piecesSize - 2 * (this.piecesSize - 1) / 6) / 2;
+
         // middle is always free
-        for (int i = x - 1; i <= x + 1; ++i) {
-            for (int j = z - 1; j <= z + 1; ++j) {
+        for (int i = x - guaranteedFreeBounds; i <= x + guaranteedFreeBounds; ++i) {
+            for (int j = z - guaranteedFreeBounds; j <= z + guaranteedFreeBounds; ++j) {
                 map.Add((i, j), MapInfo.FREE);
             }
         }
 
         // corners are always blocked
-        map.Add((x - 2, z - 2), MapInfo.BLOCKED);
-        map.Add((x - 2, z + 2), MapInfo.BLOCKED);
-        map.Add((x + 2, z - 2), MapInfo.BLOCKED);
-        map.Add((x + 2, z + 2), MapInfo.BLOCKED);
+        for (int i = x - minMaxBounds; i < x - guaranteedFreeBounds; ++i) {
+            for (int j = z - minMaxBounds; j < z - guaranteedFreeBounds; ++j) {
+                map.Add((i, j), MapInfo.BLOCKED);
+            }
+        }
+
+        for (int i = x + guaranteedFreeBounds + 1; i <= x + minMaxBounds; ++i) {
+            for (int j = z - minMaxBounds; j < z - guaranteedFreeBounds; ++j) {
+                map.Add((i, j), MapInfo.BLOCKED);
+            }
+        }
+
+        for (int i = x - minMaxBounds; i < x - guaranteedFreeBounds; ++i) {
+            for (int j = z + guaranteedFreeBounds + 1; j <= z + minMaxBounds; ++j) {
+                map.Add((i, j), MapInfo.BLOCKED);
+            }
+        }
+
+        for (int i = x + guaranteedFreeBounds + 1; i <= x + minMaxBounds; ++i) {
+            for (int j = z + guaranteedFreeBounds + 1; j <= z + minMaxBounds; ++j) {
+                map.Add((i, j), MapInfo.BLOCKED);
+            }
+        }
 
         // directional posibilities
-        map.Add((x - 2, z), connectivity[1] == '1' ? MapInfo.FREE : MapInfo.BLOCKED);
-        map.Add((x + 2, z), connectivity[3] == '1' ? MapInfo.FREE : MapInfo.BLOCKED);
-        map.Add((x, z - 2), connectivity[0] == '1' ? MapInfo.FREE : MapInfo.BLOCKED);
-        map.Add((x, z + 2), connectivity[2] == '1' ? MapInfo.FREE : MapInfo.BLOCKED);
+        MapInfo fillValue = connectivity[0] == '1' ? MapInfo.FREE : MapInfo.BLOCKED;
+        for (int i = x - guaranteedFreeBounds; i <= x + guaranteedFreeBounds; ++i) {
+            for (int j = z + guaranteedFreeBounds + 1; j <= z + minMaxBounds; ++j) {
+                map.Add((i, j), fillValue);
+            }
+        }
+
+        fillValue = connectivity[1] == '1' ? MapInfo.FREE : MapInfo.BLOCKED;
+        for (int i = x - minMaxBounds; i < x - guaranteedFreeBounds; ++i) {
+            for (int j = z - guaranteedFreeBounds; j <= z + guaranteedFreeBounds; ++j) {
+                map.Add((i, j), fillValue);
+            }
+        }
+
+        fillValue = connectivity[2] == '1' ? MapInfo.FREE : MapInfo.BLOCKED;
+        for (int i = x - guaranteedFreeBounds; i <= x + guaranteedFreeBounds; ++i) {
+            for (int j = z - minMaxBounds; j < z - guaranteedFreeBounds; ++j) {
+                map.Add((i, j), fillValue);
+            }
+        }
+
+        fillValue = connectivity[3] == '1' ? MapInfo.FREE : MapInfo.BLOCKED;
+        for (int i = x + guaranteedFreeBounds + 1; i <= x + minMaxBounds; ++i) {
+            for (int j = z - guaranteedFreeBounds; j <= z + guaranteedFreeBounds; ++j) {
+                map.Add((i, j), fillValue);
+            }
+        }
     }
 
     // Update is called once per frame

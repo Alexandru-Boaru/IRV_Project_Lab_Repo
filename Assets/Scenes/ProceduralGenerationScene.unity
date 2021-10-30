@@ -261,12 +261,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficulty: 10
   upperDifficultyBound: 30
+  piecesSize: 31
+  requiredCollectables: 5
+  maxCollectables: 40
   pieces:
-  - {fileID: 7939915588764806314, guid: 5f900b49d7ddadf4188c8a172eca66e8, type: 3}
-  - {fileID: 7939915588764806314, guid: 9cd0c476d6140ea48ae21a4b21ca1b5a, type: 3}
-  - {fileID: 7939915588764806314, guid: bae270a04da4a0b4cb1d2fe9dea5b306, type: 3}
-  - {fileID: 7939915588764806314, guid: 17ac868201f45684aadf795095662c83, type: 3}
-  - {fileID: 7939915588764806314, guid: 02414619c918dd24e9b593ba41f59818, type: 3}
+  - {fileID: 7939915588764806314, guid: 7bc09112a65d6c24ca58826d6601360e, type: 3}
+  - {fileID: 7939915588764806314, guid: b0ecb78a4f244bd4591c5fd130b3df51, type: 3}
+  - {fileID: 7939915588764806314, guid: cd59c74b7e1162741a220bf4779c1216, type: 3}
+  - {fileID: 7939915588764806314, guid: d2f726309761b0147805582628c5df7d, type: 3}
+  - {fileID: 7939915588764806314, guid: d84eea904a0cdec4a864dd2074fe3947, type: 3}
+  collectable: {fileID: 483743231361473825, guid: 6ca48eeeb5a510645aebd83d7e4810c5, type: 3}
   freePaths:
   - 1111
   - 1011
@@ -352,7 +356,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1192184900}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalPosition: {x: 0, y: 12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
