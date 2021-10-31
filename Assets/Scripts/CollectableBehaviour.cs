@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CollectableBehaviour : MonoBehaviour
 {
-    public float rotationSpeed = 2.0f;
+    public float rotationSpeed = 100.0f;
     // Start is called before the first frame update
     void Start()
     {
