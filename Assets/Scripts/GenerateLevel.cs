@@ -10,8 +10,10 @@ public class GenerateLevel : MonoBehaviour
     public int requiredCollectables; // number of collectibles needed to collect in order to progress
     public int maxCollectables; // maximum number of spawned collectibles
     public GameObject[] pieces; // 0 is the default connecting starting piece, the last is the deadend
-
+    public GameObject mazeParent; // object at the top of the maze hierarchy
+    public GameObject collectableParent; // object at the top of the collectables hierarchy
     public GameObject collectable;
+    public float minimumDistanceBetweenCollectibles = 10.0f;
     public string[] freePaths;
     /*
         Strings are related to the connectivity of the pieces
@@ -28,6 +30,8 @@ public class GenerateLevel : MonoBehaviour
     private bool loaded = false; // true when the procedural generation is over
 
     private (int, int)[] directionMovements; // how to advance rendering
+
+    /* TODO Later -- Check if this piece of code will be needed later
     public enum MapInfo
     {
         BLOCKED,
@@ -38,14 +42,22 @@ public class GenerateLevel : MonoBehaviour
     }
 
     public Dictionary<(int, int), MapInfo> map;
+    */
+    public Dictionary<(float, float), string> map;
 
     // Start is called before the first frame update
     void Start()
     {
         difficulty = Mathf.Max(1, Mathf.Min(difficulty, upperDifficultyBound));
         visited = new Dictionary<(int, int), bool>();
-        map = new Dictionary<(int, int), MapInfo>();
-        directionMovements = new (int, int)[]{(0, -piecesSize), (-piecesSize, 0), (0, piecesSize), (piecesSize, 0)};
+        // TODO Later -- Check if this piece of code will be needed later map = new Dictionary<(int, int), MapInfo>();
+        map = new Dictionary<(float, float), string>();
+        directionMovements = new (int, int)[]{
+            (0, -piecesSize * (int) mazeParent.transform.localScale.z),
+            (-piecesSize * (int) mazeParent.transform.localScale.x, 0),
+            (0, piecesSize * (int) mazeParent.transform.localScale.z),
+            (piecesSize * (int) mazeParent.transform.localScale.x, 0)
+        };
         RecursiveGeneration(0, 0, -1);
         GenerateCollectibles();
         loaded = true;
@@ -62,10 +74,10 @@ public class GenerateLevel : MonoBehaviour
         string nextDirections = "0000";
         // first piece
         if (x == 0 && z == 0) {
-            Instantiate(pieces[0], Vector3.zero, Quaternion.identity);
+            Instantiate(pieces[0], Vector3.zero, Quaternion.identity, mazeParent.transform);
             nextDirections = "1111";
             AddInfoToMap(0, 0, freePaths[0]);
-            map[(0, 0)] = MapInfo.PLAYER;
+            // TODO Later -- Check if this piece of code will be needed later map[(0, 0)] = MapInfo.PLAYER;
         } else {
             // generate 2nd+ piece
 
@@ -74,7 +86,7 @@ public class GenerateLevel : MonoBehaviour
 
             // in this case, generate a deadend
             if (depth > difficulty * 2 && (depth > difficulty * 4 || Random.Range(0, 4) == 0)) {
-                Instantiate(pieces[chosenPieceIndex], new Vector3(x, 0, z), Quaternion.Euler(0, currentDirection * 90f, 0));
+                Instantiate(pieces[chosenPieceIndex], new Vector3(x, 0, z), Quaternion.Euler(0, currentDirection * 90f, 0), mazeParent.transform);
                 nextDirections = Rotate(freePaths[chosenPieceIndex], currentDirection);
             } else {
                 // generate a continuation piece
@@ -86,7 +98,7 @@ public class GenerateLevel : MonoBehaviour
                     if (nextDirections[currentDirection] == '1')
                         break;
                 }
-                Instantiate(pieces[chosenPieceIndex], new Vector3(x, 0, z), Quaternion.Euler(0, rotationDir * 90f, 0));
+                Instantiate(pieces[chosenPieceIndex], new Vector3(x, 0, z), Quaternion.Euler(0, rotationDir * 90f, 0), mazeParent.transform);
             }
 
             AddInfoToMap(x, z, nextDirections);
@@ -100,16 +112,43 @@ public class GenerateLevel : MonoBehaviour
     }
 
     private void GenerateCollectibles() {
-        var locations = new List<(int, int)>(map.Keys);
+        Dictionary<(float, float), bool> placedCollectibles = new Dictionary<(float, float), bool>();
+        List<(float, float)> spawnedCollectibles = new List<(float, float)>();
+        var locations = new List<(float, float)>(map.Keys);
+        int minMaxBounds = (this.piecesSize - 1) / 2; // room maximum bounds
+        int guaranteedFreeBounds = (this.piecesSize - 2 * (this.piecesSize - 1) / 6) / 2;
+        int guaranteedNoClipWallsBounds = (int) (guaranteedFreeBounds - collectableParent.transform.localScale.y);
+        float roomXCoord, roomZCoord, spawnX, spawnZ;
         for (int i = 0; i < maxCollectables; ++i) {
-            int posX, posZ;
-            (posX, posZ) = locations[Random.Range(0, map.Keys.Count)];
-            if (map[(posX, posZ)] == MapInfo.FREE) {
-                Instantiate(collectable, new Vector3(posX, 3.0f, posZ), Quaternion.identity);
-                map[(posX, posZ)] = MapInfo.COLLECTABLE;
-            } else {
-                --i;
+            // get a random room
+            (roomXCoord, roomZCoord) = locations[Random.Range(0, map.Keys.Count)];
+            // get a random coord in this room which doesn't clip into a wall
+            spawnX = Random.Range(-guaranteedNoClipWallsBounds * 1.0f + roomXCoord, guaranteedNoClipWallsBounds + roomXCoord);
+            spawnZ = Random.Range(-guaranteedNoClipWallsBounds * 1.0f + roomZCoord, guaranteedNoClipWallsBounds + roomZCoord);
+            // check if the collectible is too close to another collectible
+            bool distanceRespectedFlag = true;
+            foreach ((float, float) col in spawnedCollectibles) {
+                if (Mathf.Sqrt(
+                    (col.Item1 - spawnX) * (col.Item1 - spawnX) +
+                    (col.Item2 - spawnZ) * (col.Item2 - spawnZ)
+                ) < minimumDistanceBetweenCollectibles) {
+                    distanceRespectedFlag = false;
+                    break;
+                }
             }
+            if (!distanceRespectedFlag) {
+                i--;
+                continue;
+            }
+
+            GameObject collObj = Instantiate(collectable, new Vector3(spawnX, 0, spawnZ), Quaternion.identity, collectableParent.transform);
+            /* make the collectible responsive to scaling */
+            collObj.transform.localPosition = new Vector3(
+                    collObj.transform.localPosition.x,
+                    0.5f + 2.5f / collectableParent.transform.localScale.y,
+                    collObj.transform.localPosition.z
+            );
+            spawnedCollectibles.Add((spawnX, spawnZ));
         }
     }
 
@@ -129,6 +168,8 @@ public class GenerateLevel : MonoBehaviour
     }
 
     private void AddInfoToMap(int x, int z, string connectivity) {
+        map.Add((x, z), connectivity);
+        /* TODO Later -- Check if this piece of code will be needed later
         int minMaxBounds = (this.piecesSize - 1) / 2;
         int guaranteedFreeBounds = (this.piecesSize - 2 * (this.piecesSize - 1) / 6) / 2;
 
@@ -192,6 +233,7 @@ public class GenerateLevel : MonoBehaviour
                 map.Add((i, j), fillValue);
             }
         }
+        */
     }
 
     // Update is called once per frame
