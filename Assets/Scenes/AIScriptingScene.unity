@@ -377,8 +377,8 @@ MonoBehaviour:
     m_Bits: 256
   gridWorldSize: {x: 50, y: 50}
   nodeRadius: 0.4
-  squareChunksX: 1
-  squareChunksY: 1
+  squareChunksX: 5
+  squareChunksY: 5
 --- !u!1 &439569607
 GameObject:
   m_ObjectHideFlags: 0
