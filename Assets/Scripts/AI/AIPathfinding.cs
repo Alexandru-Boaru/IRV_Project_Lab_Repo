@@ -9,11 +9,13 @@ public class AIPathfinding : MonoBehaviour
 	public List<AINode> path;
 	public Vector3 nextStop;
 	public AIGrid grid;
+	Vector3 scale;
 
 	void Awake()
 	{
 		//	grid = GetComponent<AIGrid>();
 		nextStop = transform.position;
+		scale = transform.lossyScale;
 	}
 
 
@@ -21,6 +23,8 @@ public class AIPathfinding : MonoBehaviour
 	{
 		AINode startNode = grid.NodeFromWorldPoint(startPos);
 		AINode targetNode = grid.NodeFromWorldPoint(targetPos);
+
+		//startNode.chunk.RefreshNodes();
 
 		List<AINode> openSet = new List<AINode>();
 		HashSet<AINode> closedSet = new HashSet<AINode>();
@@ -49,12 +53,12 @@ public class AIPathfinding : MonoBehaviour
 
 			foreach (AINode neighbour in grid.GetNeighbours(node))
 			{
-				if (!neighbour.walkable || closedSet.Contains(neighbour))
+				if ((neighbour.status.Equals(AINode.Status.OBSTACLE) && neighbour != targetNode) || closedSet.Contains(neighbour))
 				{
 					continue;
 				}
 
-				int newCostToNeighbour = node.gCost + GetDistance(node, neighbour);
+				int newCostToNeighbour = node.gCost + GetDistance(node, neighbour) * node.strenght;
 				if (newCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
 				{
 					neighbour.gCost = newCostToNeighbour;

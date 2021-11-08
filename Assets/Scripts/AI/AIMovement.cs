@@ -22,20 +22,27 @@ public class AIMovement : CharacterMotion
     
 
     // Update is called once per frame
-    void Update()
+
+    private void Update()
     {
         LookForPlayer();
-        pathfinding.FindPath(transform.position, targetPosition);
-
+        pathfinding.FindPath(transform.position, targetPosition);       
+        
         // Get closer to target point until player is in range or until close to target point
-        if((playerInSight && !playerInRange) || (!playerInSight && Vector3.Distance(transform.position, targetPosition) > 1f))
+        if ((playerInSight && !playerInRange) || (!playerInSight && Vector3.Distance(transform.position, targetPosition) > 1f))
         {
+            gameObject.layer = 8;
             CalculateMoveDir();
             ApplyMovement();
+        }
+        else
+        {
+            gameObject.layer = 12;
         }
 
         CheckGrounded();
     }
+
 
     private void OnDrawGizmos()
     {
