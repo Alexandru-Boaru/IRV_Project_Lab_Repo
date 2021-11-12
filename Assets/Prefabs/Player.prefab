@@ -234,7 +234,7 @@ MonoBehaviour:
   autoFire: 1
   ignoredLayers:
     serializedVersion: 2
-    m_Bits: 1873
+    m_Bits: 5969
   targetLayers:
     serializedVersion: 2
     m_Bits: 1792

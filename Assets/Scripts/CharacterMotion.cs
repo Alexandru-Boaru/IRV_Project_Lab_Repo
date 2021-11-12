@@ -56,7 +56,7 @@ public class CharacterMotion : MonoBehaviour
         //animator.SetBool("Grounded", grounded);
     }
 
-    public void ApplyMovement()
+    public virtual void ApplyMovement()
     {
         Vector3 finalMoveDir = moveDir * moveSpeed * speedMultipler;
         if (moveDir!=Vector3.zero && rigidbody.velocity.y<0 && OnSlope())
