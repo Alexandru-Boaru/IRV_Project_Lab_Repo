@@ -71,7 +71,8 @@ public class CharacterMotion : MonoBehaviour
                                          */
         float velY = rigidbody.velocity.y;
 
-        rigidbody.MovePosition(transform.position + finalMoveDir);
+        //rigidbody.MovePosition(transform.position + finalMoveDir);
+        rigidbody.velocity = finalMoveDir;
         if (!floatingCharacter)
         {
             rigidbody.velocity = new Vector3(rigidbody.velocity.x,
