@@ -227,22 +227,22 @@ MonoBehaviour:
   shootDir: {x: 0, y: 0, z: 1}
   damage: 5
   fireRate: 0.2
-  fireRateCooldown: 0
+  fireRateCooldown: 0.2
   range: 186.99
-  accuracyRingRadius: 0.83
+  accuracyRingRadius: 0.23
   accuracyRingDistance: 11.52
   autoFire: 1
-  ignoredLayers:
-    serializedVersion: 2
-    m_Bits: 5969
   targetLayers:
     serializedVersion: 2
-    m_Bits: 1792
-  numberOfRounds: 10
+    m_Bits: 5953
+  damageLayers:
+    serializedVersion: 2
+    m_Bits: 5888
+  numberOfRounds: 1
   ammoSize: 1000
   ammoLeft: 0
   bulletHolePrefab: {fileID: 5318123571427424048, guid: e29ad01da0b07ff48aa97e556e1fe490, type: 3}
-  maxBulletHoles: 100
+  objectPooler: {fileID: 0}
   timeToDestroyHole: 10
   force: 100
   lineEffectTime: 0.1
@@ -5456,6 +5456,9 @@ MonoBehaviour:
   groundedThreshold: 0.54
   grounded: 0
   groundOffset: {x: 0, y: -1.92, z: 0}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 5969
   jumpUpPower: 12
   jumpPower: 12
   slopeForce: 0.1

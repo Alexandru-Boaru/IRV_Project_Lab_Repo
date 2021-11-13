@@ -14,6 +14,7 @@ public class CharacterMotion : MonoBehaviour
     public float groundedThreshold;
     public bool grounded;
     public Vector3 groundOffset;
+    public LayerMask groundMask;
 
     public float jumpUpPower;
     public float jumpPower;
@@ -44,7 +45,7 @@ public class CharacterMotion : MonoBehaviour
             {
                 Vector3 offset = new Vector3(xOffset, 0f, zOffset).normalized * capsule.radius;
                 ray.origin = rayOrigin + offset;
-                if (Physics.Raycast(ray, 2f * groundedThreshold))
+                if (Physics.Raycast(ray, 2f * groundedThreshold, groundMask.value))
                 {
                     grounded = true;
                     Debug.DrawLine(ray.origin, ray.origin + ray.direction * 2f * groundedThreshold, Color.green);
@@ -104,7 +105,7 @@ public class CharacterMotion : MonoBehaviour
 
                 ray.origin = rayOrigin + offset;
                 Gizmos.DrawSphere(ray.origin, 0.1f);
-                Gizmos.DrawLine(ray.origin, ray.origin + Vector3.down * 2f * groundedThreshold);
+                //Gizmos.DrawLine(ray.origin, ray.origin + Vector3.down * 2f * groundedThreshold);
                 /*
                 if (Physics.Raycast(ray, 2f * groundedThreshold))
                 {

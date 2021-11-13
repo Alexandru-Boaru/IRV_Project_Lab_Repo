@@ -17,8 +17,8 @@ public class CharacterShooter : MonoBehaviour
 
     //public Vector3 viewOffset;
 
-    public LayerMask ignoredLayers;
     public LayerMask targetLayers;
+    public LayerMask damageLayers;
 
     public int numberOfRounds;
     public int ammoSize;
@@ -26,7 +26,8 @@ public class CharacterShooter : MonoBehaviour
     private int ammoLeft;
 
     public GameObject bulletHolePrefab;
-    public int maxBulletHoles = 100;
+    //public int maxBulletHoles = 100;
+    public ObjectPooler objectPooler;
     [Min(0)]
     public float timeToDestroyHole;
 
@@ -44,7 +45,7 @@ public class CharacterShooter : MonoBehaviour
     protected virtual void Start()
     {
         ammoLeft = ammoSize;
-        
+        objectPooler = ObjectPooler.Instance;
         for(int i = 0; i < numberOfRounds; i++)
         {
             GameObject le = Instantiate(lineEffect, gun, true);
@@ -79,14 +80,17 @@ public class CharacterShooter : MonoBehaviour
             Vector3 bulletHolePosition = origin.position + currentShootDir * range;
             
             RaycastHit hit;
-            if(Physics.Raycast(origin.position, currentShootDir, out hit, range, ignoredLayers.value))
+            if(Physics.Raycast(origin.position, currentShootDir, out hit, range, targetLayers.value))
             {
                 Debug.Log(hit.transform.name);
                 bulletHolePosition = hit.point + hit.normal * 0.001f;
+                /*
                 GameObject bh = Instantiate(bulletHolePrefab, bulletHolePosition, Quaternion.LookRotation(hit.normal));
                 bh.transform.SetParent(hit.transform, true);
                 Destroy(bh, timeToDestroyHole);
-                if((1<<hit.transform.gameObject.layer & targetLayers.value) != 0)
+                */
+                objectPooler.SpawnFromPool("bullet", bulletHolePosition, Quaternion.LookRotation(hit.normal), hit.transform);
+                if ((1<<hit.transform.gameObject.layer & damageLayers.value) != 0)
                 {
                     hit.transform.GetComponent<Rigidbody>().AddForceAtPosition(currentShootDir * force, hit.point);
                 }
@@ -114,7 +118,7 @@ public class CharacterShooter : MonoBehaviour
     IEnumerator LineEffectCounter()
     {
         yield return new WaitForSeconds(lineEffectTime);
-        Debug.Log("Boo");
+        //Debug.Log("Boo");
         for (int i = 0; i < numberOfRounds; i++)
         {
             roundLines[i].SetActive(false);

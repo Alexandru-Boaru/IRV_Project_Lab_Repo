@@ -882,6 +882,9 @@ MonoBehaviour:
   groundedThreshold: 0.48
   grounded: 0
   groundOffset: {x: 0, y: -1.32, z: 0}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
   jumpUpPower: 0
   jumpPower: 0
   slopeForce: 0
@@ -1059,6 +1062,9 @@ MonoBehaviour:
   groundedThreshold: 0.48
   grounded: 0
   groundOffset: {x: 0, y: -1.32, z: 0}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
   jumpUpPower: 0
   jumpPower: 0
   slopeForce: 0
@@ -1177,6 +1183,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPoints: 10
   dead: 0
+--- !u!1 &739425015
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 739425017}
+  - component: {fileID: 739425016}
+  m_Layer: 0
+  m_Name: ObjectPooler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &739425016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739425015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3555a6300cd584b46a2b1721acd92b1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pools:
+  - tag: bullet
+    prefab: {fileID: 5318123571427424048, guid: e29ad01da0b07ff48aa97e556e1fe490, type: 3}
+    size: 50
+    root: {fileID: 2116916235}
+--- !u!4 &739425017
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739425015}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2116916235}
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &750730185
 GameObject:
   m_ObjectHideFlags: 0
@@ -1444,6 +1499,9 @@ MonoBehaviour:
   groundedThreshold: 0.48
   grounded: 0
   groundOffset: {x: 0, y: -1.32, z: 0}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
   jumpUpPower: 0
   jumpPower: 0
   slopeForce: 0
@@ -1905,6 +1963,9 @@ MonoBehaviour:
   groundedThreshold: 0.48
   grounded: 0
   groundOffset: {x: 0, y: -1.32, z: 0}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
   jumpUpPower: 0
   jumpPower: 0
   slopeForce: 0
@@ -2211,6 +2272,9 @@ MonoBehaviour:
   groundedThreshold: 0.48
   grounded: 0
   groundOffset: {x: 0, y: -1.32, z: 0}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
   jumpUpPower: 0
   jumpPower: 0
   slopeForce: 0
@@ -3050,6 +3114,9 @@ MonoBehaviour:
   groundedThreshold: 0.54
   grounded: 0
   groundOffset: {x: 0, y: -1.04, z: 0}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
   jumpUpPower: 8
   jumpPower: 8
   slopeForce: 0
@@ -3103,6 +3170,36 @@ Transform:
   - {fileID: 1580539056}
   m_Father: {fileID: 0}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2116916234
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2116916235}
+  m_Layer: 0
+  m_Name: BulletHoleRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2116916235
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116916234}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 739425017}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2120863733 stripped
 Transform:

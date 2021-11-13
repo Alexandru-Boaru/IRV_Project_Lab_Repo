@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5318123571427424050}
   - component: {fileID: 5318123571427424051}
+  - component: {fileID: 9055407340809548376}
+  - component: {fileID: 4403887547354736071}
   m_Layer: 0
   m_Name: BulletHole
   m_TagString: Untagged
@@ -82,3 +84,45 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &9055407340809548376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5318123571427424048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 535f9c9a040c2ef42b66071b8d598cbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToLive: 10
+  pc: {fileID: 4403887547354736071}
+  index: 0
+  defaultColor: {r: 0, g: 0, b: 0, a: 1}
+--- !u!1773428102 &4403887547354736071
+ParentConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5318123571427424048}
+  m_Enabled: 1
+  m_Weight: 1
+  m_TranslationAtRest: {x: 0, y: 0, z: -0}
+  m_RotationAtRest: {x: 0, y: 0, z: 0}
+  m_TranslationOffsets:
+  - {x: 0, y: 0, z: 0}
+  m_RotationOffsets:
+  - {x: 0, y: 0, z: 0}
+  m_AffectTranslationX: 1
+  m_AffectTranslationY: 1
+  m_AffectTranslationZ: 1
+  m_AffectRotationX: 1
+  m_AffectRotationY: 1
+  m_AffectRotationZ: 1
+  m_IsContraintActive: 0
+  m_IsLocked: 1
+  m_Sources:
+  - sourceTransform: {fileID: 0}
+    weight: 1
