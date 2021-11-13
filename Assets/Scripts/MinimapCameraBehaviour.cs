@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MinimapCameraBehaviour : MonoBehaviour
 {
+    public Camera mainCamera;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +17,8 @@ public class MinimapCameraBehaviour : MonoBehaviour
         
     }
 
-    private void FixedUpdate() {
-        transform.localRotation = Quaternion.Euler(90f, 0, 0);
+    private void LateUpdate() {
+        transform.localRotation = Quaternion.Euler(90f, mainCamera.transform.rotation.eulerAngles.y, 0);
+        transform.position = new Vector3(mainCamera.transform.position.x, transform.position.y, mainCamera.transform.position.z);
     }
 }
