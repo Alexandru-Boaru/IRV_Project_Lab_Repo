@@ -12,6 +12,7 @@ public class AIMovement : CharacterMotion
     [SerializeField] LayerMask playerLayer;
     [SerializeField] Transform player;
     [SerializeField] NavMeshAgent agent;
+    [SerializeField] EnemyShooter shooter;
 
     Vector3 targetPosition;
     Vector3 patrolPoint;
@@ -23,13 +24,23 @@ public class AIMovement : CharacterMotion
         targetPosition = transform.position;
         agent.updateRotation = false;
         SetPatrolPoint();
+        shooter = GetComponentInChildren<EnemyShooter>();
     }
 
 
     private void Update()
     {
         LookForPlayer();
-        ApplyMovement();
+
+
+        if (playerInSight && playerInRange)
+        {
+            TryFire();
+        }
+        else
+        {
+            ApplyMovement();
+        }
         CheckGrounded();
     }
     void UpdatePatrolDestination()
@@ -55,20 +66,18 @@ public class AIMovement : CharacterMotion
 
     public override void ApplyMovement()
     {
-        // Get closer to target point until player is in range or until close to target point
-        if ((playerInSight && !playerInRange))
+        // Get closer to target point:
+        if ((!playerInSight && Vector3.Distance(transform.position, targetPosition) > 1f) || // If not seeing player
+            (playerInSight && Vector3.Distance(transform.position, player.position) > attackRange - 1)) // If seeing player but not close enough to shoot
+                                                                                                        // (also some extra distance to be able to keep shooting)
         {
             agent.speed = moveSpeed;
             agent.destination = targetPosition;
         }
-        else if (!playerInSight && Vector3.Distance(transform.position, targetPosition) > 1f)
-        {
-            agent.speed = moveSpeed * patrolSpeedPercentage;
-            agent.destination = targetPosition;
-        }
-        else
+        else if (!(playerInSight && playerInRange))
         {
             //agent.destination = transform.position;
+            agent.speed = moveSpeed * patrolSpeedPercentage;
             UpdatePatrolDestination();
         }
     }
@@ -94,13 +103,28 @@ public class AIMovement : CharacterMotion
             playerInSight = false;
         }
 
-        if (playerInSight)
-        {
-            targetPosition = player.position;
-        }
+        
 
         playerInRange = Physics.Raycast(transform.position, transform.InverseTransformPoint(player.position), attackRange, playerLayer.value);
 
+        if (playerInSight && playerInRange)
+        {
+            targetPosition = transform.position;
+        }
+        else if (playerInSight)
+        {
+            targetPosition = player.position;
+        }
+    }
+
+    void TryFire()
+    {
+        agent.destination = transform.position; // Make character stop moving if player is in range
+
+        // Fire logic
+        shooter.shootDir = player.position - shooter.transform.position;
+        shooter.EnemyShoot();
+        //shooter.Recharge();
     }
 
 }

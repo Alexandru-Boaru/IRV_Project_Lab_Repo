@@ -9,7 +9,7 @@ public class CharacterShooter : MonoBehaviour
     public int damage;
     public float fireRate;
     [SerializeField]
-    private float fireRateCooldown;
+    protected float fireRateCooldown;
     public float range;
     public float accuracyRingRadius;
     public float accuracyRingDistance;
@@ -58,7 +58,7 @@ public class CharacterShooter : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        fireRateCooldown -= Time.deltaTime;
+        fireRateCooldown -= fireRateCooldown < 0? 0 : Time.deltaTime;
     }
 
     public void Shoot()
@@ -101,13 +101,15 @@ public class CharacterShooter : MonoBehaviour
                 }
             }
             if (leCor != null)
+            {
                 StopCoroutine(leCor);
-            roundLines[i].SetActive(false);
-            roundLines[i].GetComponent<LineRenderer>().SetPosition(0, gun.position);
-            roundLines[i].GetComponent<LineRenderer>().SetPosition(1, bulletHolePosition);
-            roundLines[i].SetActive(true);
-            leCor = LineEffectCounter();
-            StartCoroutine(leCor);
+                roundLines[i].SetActive(false);
+                roundLines[i].GetComponent<LineRenderer>().SetPosition(0, gun.position);
+                roundLines[i].GetComponent<LineRenderer>().SetPosition(1, bulletHolePosition);
+                roundLines[i].SetActive(true);
+                leCor = LineEffectCounter();
+                StartCoroutine(leCor);
+            }
         }
 
         ammoLeft -= numberOfRounds;
