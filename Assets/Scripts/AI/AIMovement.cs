@@ -9,15 +9,20 @@ public class AIMovement : CharacterMotion
     [SerializeField] float sightRange = 10f;
     [SerializeField] float patrolRange = 4f;
     [SerializeField] float patrolSpeedPercentage = 0.4f;
+    [SerializeField] float rotationSpeed = 3f;
     [SerializeField] LayerMask playerLayer;
     [SerializeField] Transform player;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] EnemyShooter shooter;
+    [SerializeField] Transform body;
 
     Vector3 targetPosition;
     Vector3 patrolPoint;
     bool playerInSight = false;
     bool playerInRange = false;
+
+    private Quaternion _lookRotation;
+    private Vector3 _direction;
 
     void OnEnable()
     {
@@ -31,18 +36,33 @@ public class AIMovement : CharacterMotion
     private void Update()
     {
         LookForPlayer();
-
+        
 
         if (playerInSight && playerInRange)
         {
+            LookAtTarget(player.position);
             TryFire();
         }
         else
         {
+            LookAtTarget(targetPosition);
             ApplyMovement();
         }
         CheckGrounded();
     }
+
+    void LookAtTarget(Vector3 lookAt)
+    {
+        _direction = (lookAt - transform.position);
+        _direction = new Vector3(_direction.x, 0f, _direction.z);
+
+        //create the rotation we need to be in to look at the target
+        _lookRotation = Quaternion.LookRotation(_direction);
+        //rotate us over time according to speed until we are in the required rotation
+        body.rotation = Quaternion.Slerp(body.rotation, _lookRotation, Time.deltaTime * rotationSpeed);
+        //body.rotation = Quaternion.LookRotation(_direction);
+    }
+
     void UpdatePatrolDestination()
     {
         Vector3 targetPositionAttempt = patrolPoint + new Vector3(Random.Range(-patrolRange, patrolRange), 0, Random.Range(-patrolRange, patrolRange));
@@ -86,8 +106,7 @@ public class AIMovement : CharacterMotion
     private void OnDrawGizmos()
     {
         Gizmos.DrawRay(transform.position, transform.InverseTransformPoint(player.position));
-        Gizmos.DrawSphere(player.position, 0.5f);
-        Gizmos.DrawSphere(transform.position, 0.5f);
+        Gizmos.DrawSphere(targetPosition, 0.1f);
     }
 
     void LookForPlayer()
@@ -123,7 +142,7 @@ public class AIMovement : CharacterMotion
 
         // Fire logic
         shooter.shootDir = player.position - shooter.transform.position;
-        shooter.EnemyShoot();
+        shooter.Shoot();
         //shooter.Recharge();
     }
 

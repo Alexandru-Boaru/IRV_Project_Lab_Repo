@@ -20,9 +20,4 @@ public class EnemyShooter : CharacterShooter
             Recharge();
         }
     }
-    public void EnemyShoot()
-    {
-        Shoot();
-        //fireRateCooldown = fireRate;
-    }
 }
