@@ -1,52 +1,112 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AIMovement : CharacterMotion
 {
     [SerializeField] float attackRange = 5f;
     [SerializeField] float sightRange = 10f;
+    [SerializeField] float patrolRange = 4f;
+    [SerializeField] float patrolSpeedPercentage = 0.4f;
+    [SerializeField] float rotationSpeed = 3f;
     [SerializeField] LayerMask playerLayer;
-    [SerializeField] AIPathfinding pathfinding;
     [SerializeField] Transform player;
+    [SerializeField] NavMeshAgent agent;
+    [SerializeField] EnemyShooter shooter;
+    [SerializeField] Transform body;
 
     Vector3 targetPosition;
+    Vector3 patrolPoint;
     bool playerInSight = false;
     bool playerInRange = false;
-    // Start is called before the first frame update
+
+    private Quaternion _lookRotation;
+    private Vector3 _direction;
+
     void OnEnable()
     {
         targetPosition = transform.position;
+        agent.updateRotation = false;
+        SetPatrolPoint();
+        shooter = GetComponentInChildren<EnemyShooter>();
     }
 
-    
-
-    // Update is called once per frame
 
     private void Update()
     {
         LookForPlayer();
-        pathfinding.FindPath(transform.position, targetPosition);       
         
-        // Get closer to target point until player is in range or until close to target point
-        if ((playerInSight && !playerInRange) || (!playerInSight && Vector3.Distance(transform.position, targetPosition) > 1f))
+
+        if (playerInSight && playerInRange)
         {
-            gameObject.layer = 8;
-            CalculateMoveDir();
-            ApplyMovement();
+            LookAtTarget(player.position);
+            TryFire();
         }
         else
         {
-            gameObject.layer = 12;
+            LookAtTarget(targetPosition);
+            ApplyMovement();
         }
-
         CheckGrounded();
+    }
+
+    void LookAtTarget(Vector3 lookAt)
+    {
+        _direction = (lookAt - transform.position);
+        _direction = new Vector3(_direction.x, 0f, _direction.z);
+
+        //create the rotation we need to be in to look at the target
+        _lookRotation = Quaternion.LookRotation(_direction);
+        //rotate us over time according to speed until we are in the required rotation
+        body.rotation = Quaternion.Slerp(body.rotation, _lookRotation, Time.deltaTime * rotationSpeed);
+        //body.rotation = Quaternion.LookRotation(_direction);
+    }
+
+    void UpdatePatrolDestination()
+    {
+        Vector3 targetPositionAttempt = patrolPoint + new Vector3(Random.Range(-patrolRange, patrolRange), 0, Random.Range(-patrolRange, patrolRange));
+
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(targetPositionAttempt, out hit, 1f, NavMesh.AllAreas))
+        {
+            targetPosition = hit.position;
+        }
+        else
+        {
+            UpdatePatrolDestination();
+        }
+    }
+
+    void SetPatrolPoint()
+    {
+        patrolPoint = transform.position;
+    }
+
+
+    public override void ApplyMovement()
+    {
+        // Get closer to target point:
+        if ((!playerInSight && Vector3.Distance(transform.position, targetPosition) > 1f) || // If not seeing player
+            (playerInSight && Vector3.Distance(transform.position, player.position) > attackRange - 1)) // If seeing player but not close enough to shoot
+                                                                                                        // (also some extra distance to be able to keep shooting)
+        {
+            agent.speed = moveSpeed;
+            agent.destination = targetPosition;
+        }
+        else if (!(playerInSight && playerInRange))
+        {
+            //agent.destination = transform.position;
+            agent.speed = moveSpeed * patrolSpeedPercentage;
+            UpdatePatrolDestination();
+        }
     }
 
 
     private void OnDrawGizmos()
     {
         Gizmos.DrawRay(transform.position, transform.InverseTransformPoint(player.position));
+        Gizmos.DrawSphere(targetPosition, 0.1f);
     }
 
     void LookForPlayer()
@@ -59,23 +119,31 @@ public class AIMovement : CharacterMotion
         }
         else
         {
-        playerInSight = false;
+            playerInSight = false;
         }
 
-        if (playerInSight)
-        {
-            targetPosition = player.position;
-        }
+        
 
         playerInRange = Physics.Raycast(transform.position, transform.InverseTransformPoint(player.position), attackRange, playerLayer.value);
 
-    //    Debug.Log("Player in sight: " + playerInSight + "   Player in range: " + playerInRange);
+        if (playerInSight && playerInRange)
+        {
+            targetPosition = transform.position;
+        }
+        else if (playerInSight)
+        {
+            targetPosition = player.position;
+        }
     }
 
-    void CalculateMoveDir()
+    void TryFire()
     {
-        moveDir = new Vector3(pathfinding.nextStop.x, transform.position.y, pathfinding.nextStop.z); // Get world point of direction
-        moveDir = transform.InverseTransformPoint(moveDir); // Convert to local
-        moveDir = Vector3.ProjectOnPlane(moveDir, Vector3.up).normalized;
+        agent.destination = transform.position; // Make character stop moving if player is in range
+
+        // Fire logic
+        shooter.shootDir = player.position - shooter.transform.position;
+        shooter.Shoot();
+        //shooter.Recharge();
     }
+
 }
