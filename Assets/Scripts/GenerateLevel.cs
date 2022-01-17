@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GenerateLevel : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class GenerateLevel : MonoBehaviour
     */
 
     private Dictionary<(int, int), bool> visited;
+    private List<GameObject> mazeRooms;
 
     private bool loaded = false; // true when the procedural generation is over
 
@@ -50,6 +52,7 @@ public class GenerateLevel : MonoBehaviour
     {
         difficulty = Mathf.Max(1, Mathf.Min(difficulty, upperDifficultyBound));
         visited = new Dictionary<(int, int), bool>();
+        mazeRooms = new List<GameObject>();
         // TODO Later -- Check if this piece of code will be needed later map = new Dictionary<(int, int), MapInfo>();
         map = new Dictionary<(float, float), string>();
         directionMovements = new (int, int)[]{
@@ -60,6 +63,7 @@ public class GenerateLevel : MonoBehaviour
         };
         RecursiveGeneration(0, 0, -1);
         GenerateCollectibles();
+        GenerateNavMeshes();
         loaded = true;
     }
 
@@ -74,7 +78,7 @@ public class GenerateLevel : MonoBehaviour
         string nextDirections = "0000";
         // first piece
         if (x == 0 && z == 0) {
-            Instantiate(pieces[0], Vector3.zero, Quaternion.identity, mazeParent.transform);
+            mazeRooms.Add(Instantiate(pieces[0], Vector3.zero, Quaternion.identity, mazeParent.transform));
             nextDirections = "1111";
             AddInfoToMap(0, 0, freePaths[0]);
             // TODO Later -- Check if this piece of code will be needed later map[(0, 0)] = MapInfo.PLAYER;
@@ -86,7 +90,7 @@ public class GenerateLevel : MonoBehaviour
 
             // in this case, generate a deadend
             if (depth > difficulty * 2 && (depth > difficulty * 4 || Random.Range(0, 4) == 0)) {
-                Instantiate(pieces[chosenPieceIndex], new Vector3(x, 0, z), Quaternion.Euler(0, currentDirection * 90f, 0), mazeParent.transform);
+                mazeRooms.Add(Instantiate(pieces[chosenPieceIndex], new Vector3(x, 0, z), Quaternion.Euler(0, currentDirection * 90f, 0), mazeParent.transform));
                 nextDirections = Rotate(freePaths[chosenPieceIndex], currentDirection);
             } else {
                 // generate a continuation piece
@@ -98,7 +102,7 @@ public class GenerateLevel : MonoBehaviour
                     if (nextDirections[currentDirection] == '1')
                         break;
                 }
-                Instantiate(pieces[chosenPieceIndex], new Vector3(x, 0, z), Quaternion.Euler(0, rotationDir * 90f, 0), mazeParent.transform);
+                mazeRooms.Add(Instantiate(pieces[chosenPieceIndex], new Vector3(x, 0, z), Quaternion.Euler(0, rotationDir * 90f, 0), mazeParent.transform));
             }
 
             AddInfoToMap(x, z, nextDirections);
@@ -149,6 +153,18 @@ public class GenerateLevel : MonoBehaviour
                     collObj.transform.localPosition.z
             );
             spawnedCollectibles.Add((spawnX, spawnZ));
+        }
+    }
+
+    public void GenerateNavMeshes()
+    {
+        foreach(GameObject go in mazeRooms)
+        {
+            NavMeshSurface nms = go.GetComponent<NavMeshSurface>();
+            if(nms != null)
+            {
+                nms.BuildNavMesh();
+            }
         }
     }
 
