@@ -20,10 +20,15 @@ public class CharacterShooter : MonoBehaviour
     public LayerMask targetLayers;
     public LayerMask damageLayers;
 
+    public int maxNumberOfRounds;
     public int numberOfRounds;
     public int ammoSize;
+    //[SerializeField]
+    public int ammoLeft;
+    public int ammoTotal;
     [SerializeField]
-    private int ammoLeft;
+    protected bool recharging;
+    public float rechargingCooldown;
 
     public GameObject bulletHolePrefab;
     //public int maxBulletHoles = 100;
@@ -46,9 +51,10 @@ public class CharacterShooter : MonoBehaviour
     {
         ammoLeft = ammoSize;
         objectPooler = ObjectPooler.Instance;
-        for(int i = 0; i < numberOfRounds; i++)
+        for(int i = 0; i < maxNumberOfRounds; i++)
         {
             GameObject le = Instantiate(lineEffect, gun, true);
+            le.layer = LayerMask.NameToLayer("FX");
             le.SetActive(false);
             roundLines.Add(le);
         }
@@ -69,6 +75,8 @@ public class CharacterShooter : MonoBehaviour
         {
             return;
         }
+        if (recharging)
+            return;
         for (int i = 0; i < numberOfRounds; i++)
         {
             Vector3 v = origin.up * (Random.Range(0f, 1f) * accuracyRingRadius);
@@ -103,16 +111,16 @@ public class CharacterShooter : MonoBehaviour
             if (leCor != null)
             {
                 StopCoroutine(leCor);
-                roundLines[i].SetActive(false);
-                roundLines[i].GetComponent<LineRenderer>().SetPosition(0, gun.position);
-                roundLines[i].GetComponent<LineRenderer>().SetPosition(1, bulletHolePosition);
-                roundLines[i].SetActive(true);
-                leCor = LineEffectCounter();
-                StartCoroutine(leCor);
             }
+            roundLines[i].SetActive(false);
+            roundLines[i].GetComponent<LineRenderer>().SetPosition(0, gun.position);
+            roundLines[i].GetComponent<LineRenderer>().SetPosition(1, bulletHolePosition);
+            roundLines[i].SetActive(true);
+            leCor = LineEffectCounter();
+            StartCoroutine(leCor);
         }
 
-        ammoLeft -= numberOfRounds;
+        ammoLeft--;
         fireRateCooldown = fireRate;
     }
 
@@ -130,8 +138,46 @@ public class CharacterShooter : MonoBehaviour
 
     public void Recharge()
     {
-        ammoLeft = ammoSize;
+        if (recharging)
+            return;
+        if (ammoTotal == -1)
+        {
+            ammoLeft = ammoSize;
+        }
+        else if (ammoSize <= ammoTotal)
+        {
+            ammoTotal -= (ammoSize - ammoLeft);
+            ammoLeft = ammoSize;
+        }
+        else if (ammoTotal > 0)
+        {
+            int ammoDif = ammoSize - ammoLeft;
+            if (ammoDif > ammoTotal)
+            {
+                ammoLeft += ammoTotal;
+                ammoTotal = 0;
+            }
+            else
+            {
+                ammoLeft = ammoSize;
+                ammoTotal -= ammoDif;
+            }
+        }
+
         fireRateCooldown = 0;
+        StartCoroutine(RechargeCooldown());
+    }
+
+    IEnumerator RechargeCooldown()
+    {
+        recharging = true;
+        yield return new WaitForSeconds(rechargingCooldown);
+        recharging = false;
+    }
+
+    public void AddAmmo(int ammo)
+    {
+        ammoTotal += ammo;
     }
 
     protected virtual void OnDrawGizmos()

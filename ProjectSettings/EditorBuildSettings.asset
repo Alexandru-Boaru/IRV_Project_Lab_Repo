@@ -8,8 +8,17 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: d1c3109bdb54ad54c8a2b2838528e640
-  - enabled: 1
+  - enabled: 0
     path: Assets/Samples/Google Cardboard XR Plugin for Unity/1.8.0/Hello Cardboard/Scenes/HelloCardboard.unity
     guid: 145a2a45d7bc746b19cb68410368bf96
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 12507e2c7dd586e4196a1fc0546effef
+  - enabled: 1
+    path: Assets/Scenes/ProceduralGenerationScene.unity
+    guid: 1a3b996aec639834db7d34b4cdb1542d
+  - enabled: 1
+    path: Assets/Scenes/RollerCoasterScene.unity
+    guid: 66ae6b03236912e45981a22ecbf9570c
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 1b30c54ccff2be348a9af286bacbf210, type: 2}

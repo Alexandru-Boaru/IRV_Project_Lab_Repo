@@ -13,6 +13,8 @@ public class PlayerInput : MonoBehaviour
     public bool shootOnce;
     public bool shootAuto;
     public bool mustRecharge;
+    public bool nextWeapon;
+    public bool prevWeapon;
 
     public bool vrEnabled;
     // Start is called before the first frame update
@@ -43,6 +45,10 @@ public class PlayerInput : MonoBehaviour
                 shootAuto = false;
             if (Input.GetKeyDown(KeyCode.R))
                 mustRecharge = true;
+            if (Input.GetKeyDown(KeyCode.Q))
+                prevWeapon = true;
+            if (Input.GetKeyDown(KeyCode.E))
+                nextWeapon = true;
 
         }
     }

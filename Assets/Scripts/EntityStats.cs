@@ -5,6 +5,7 @@ using UnityEngine;
 public class EntityStats : MonoBehaviour
 {
     public int hitPoints;
+    public int maxHitPoints;
     public bool dead = false;
     // Start is called before the first frame update
     void Start()
@@ -12,7 +13,7 @@ public class EntityStats : MonoBehaviour
         
     }
 
-    public void TakeDamage(int hp)
+    public virtual void TakeDamage(int hp)
     {
         if (dead)
             return;

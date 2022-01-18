@@ -2586,6 +2586,8 @@ MonoBehaviour:
   shootOnce: 0
   shootAuto: 0
   mustRecharge: 0
+  nextWeapon: 0
+  prevWeapon: 0
   vrEnabled: 0
 --- !u!114 &2030793206
 MonoBehaviour:
@@ -2871,6 +2873,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 574715c136b86e84f9086e484ecdd2f5, type: 2}
+    - target: {fileID: 7812867024624881743, guid: 030829c7fe8e18c4c9e80a33cc730ee7, type: 3}
+      propertyPath: ammoTotal
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 7812867024624881743, guid: 030829c7fe8e18c4c9e80a33cc730ee7, type: 3}
       propertyPath: objectPooler
       value: 
