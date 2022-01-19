@@ -32,7 +32,9 @@ public class MenuManager : MonoBehaviour
 
     public void Resume()
     {
+        menuPanel.SetActive(false);
         LevelManager.instance.ResumeGame();
+        Time.timeScale = 1;
     }
 
     private void Update()
@@ -41,13 +43,13 @@ public class MenuManager : MonoBehaviour
         {
             if (LevelManager.instance.isPaused)
             {
-                menuPanel.SetActive(false);
-                LevelManager.instance.ResumeGame();
+                Resume();
             }
             else
             {
                 menuPanel.SetActive(true);
                 LevelManager.instance.PauseGame();
+                Time.timeScale = 0;
             }
         }
     }

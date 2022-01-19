@@ -17,6 +17,7 @@ public class PlayerInput : MonoBehaviour
     public bool prevWeapon;
 
     public bool vrEnabled;
+    public bool inCart = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,15 +29,18 @@ public class PlayerInput : MonoBehaviour
     {
         if (!vrEnabled)
         {
-            forward = Input.GetAxis("Vertical");
-            right = Input.GetAxis("Horizontal");
-            up = Input.GetAxis("UpAxis");
-            if (Input.GetKeyDown(KeyCode.Space))
-                mustJump = true;
-            if (Input.GetKey(KeyCode.LeftShift))
-                mustRun = true;
-            else
-                mustRun = false;
+            if (!inCart)
+            {
+                forward = Input.GetAxis("Vertical");
+                right = Input.GetAxis("Horizontal");
+                up = Input.GetAxis("UpAxis");
+                if (Input.GetKeyDown(KeyCode.Space))
+                    mustJump = true;
+                if (Input.GetKey(KeyCode.LeftShift))
+                    mustRun = true;
+                else
+                    mustRun = false;
+            }
             if (Input.GetKeyDown(KeyCode.Mouse0))
                 shootOnce = true;
             if (Input.GetKey(KeyCode.Mouse0))

@@ -19,6 +19,8 @@ public class LevelManager : MonoBehaviour
     public GameObject loadingPanel;
     public Animator anim;
 
+    public GameObject player;
+
     void Awake()
     {
         //LevelManager[] objs = FindObjectsOfType<LevelManager>();
@@ -51,6 +53,7 @@ public class LevelManager : MonoBehaviour
         if (!canBePaused)
             return;
         isPaused = true;
+        Cursor.lockState = CursorLockMode.None;
         //freeze all rigibodies
         //put up menu
     }
@@ -58,6 +61,7 @@ public class LevelManager : MonoBehaviour
     public void ResumeGame()
     {
         isPaused = false;
+        Cursor.lockState = CursorLockMode.Locked;
         //unfreeze all rigidbodies
         //put down menu
     }
@@ -83,7 +87,17 @@ public class LevelManager : MonoBehaviour
     public void LoadLevel(int id, int level)
     {
         isPaused = false;
+        Time.timeScale = 1;
         SceneManager.LoadScene(id);
+        player.transform.position = Vector3.zero;
+        if (SceneManager.GetActiveScene().buildIndex > 0)
+            Cursor.lockState = CursorLockMode.Locked;
+        else
+            Cursor.lockState = CursorLockMode.None;
+        if(SceneManager.GetActiveScene().buildIndex > 0)
+        {
+            StartLevel();
+        }
         //Spawn player in train
         //Run train
         //Randomly spawn flying enemies
@@ -96,7 +110,8 @@ public class LevelManager : MonoBehaviour
     public void StartLevel()
     {
         GameplayManager.instance.ResetCards();
-        
+        player.SetActive(true);
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
         //animate transition to maze
         //activate player
         //spawn enemies
@@ -127,7 +142,22 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (player == null)
+        {
+            PlayerStats ps = FindObjectOfType<PlayerStats>();
+            if(ps != null)
+                player = ps.gameObject;
+        }
+        if (player == null)
+            return;
+        if(SceneManager.GetActiveScene().buildIndex == 0 && player.activeInHierarchy)
+        {
+            player.SetActive(false);
+        }
+        //if(SceneManager.GetActiveScene().buildIndex == 1 && GameplayManager.instance.cards == 4)
+        //{
+
+        //}
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)

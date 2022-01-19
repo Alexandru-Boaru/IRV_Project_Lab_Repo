@@ -9,6 +9,22 @@ public class PlayerStats : EntityStats
     public bool invincible = false;
     public float invincibilityTimer;
 
+    public PlayerStats instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+
+        DontDestroyOnLoad(this.gameObject);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +37,12 @@ public class PlayerStats : EntityStats
             return;
         base.TakeDamage(hp);
         StartCoroutine(Invincibility());
+        fillHpBar.fillAmount = ((float)hitPoints) / maxHitPoints;
+    }
+
+    public void Heal(int hp)
+    {
+        hitPoints = Mathf.Clamp(hitPoints + hp, 0, maxHitPoints);
         fillHpBar.fillAmount = ((float)hitPoints) / maxHitPoints;
     }
 

@@ -47,6 +47,8 @@ public class GenerateLevel : MonoBehaviour
     */
     public Dictionary<(float, float), string> map;
 
+    public EnemyUnits enemyUnits;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +66,7 @@ public class GenerateLevel : MonoBehaviour
         RecursiveGeneration(0, 0, -1);
         GenerateCollectibles();
         GenerateNavMeshes();
+        GenerateEnemies();
         loaded = true;
     }
 
@@ -165,6 +168,15 @@ public class GenerateLevel : MonoBehaviour
             {
                 nms.BuildNavMesh();
             }
+        }
+    }
+
+    public void GenerateEnemies()
+    {
+        foreach (GameObject go in mazeRooms)
+        {
+            GameObject er = enemyUnits.GetRandomEnemy();
+            Instantiate(er, go.transform, false);
         }
     }
 

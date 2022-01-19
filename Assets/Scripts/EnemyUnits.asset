@@ -15,3 +15,44 @@ MonoBehaviour:
   enemies:
   - enemyType: 0
     enemyPrefab: {fileID: 8137080321719107333, guid: 030829c7fe8e18c4c9e80a33cc730ee7, type: 3}
+  enemyRoots:
+  - {fileID: 4441348325554674706, guid: c17a76dd966f5c94796a27c1f7c833b8, type: 3}
+  - {fileID: 4348456075535828649, guid: 7c3e44947faba4042b105d1ea382cdd1, type: 3}
+  - {fileID: 3096965907296214112, guid: e7e0a824f2052164194c12bfcd0b4bd6, type: 3}
+  - {fileID: 1126569301654879310, guid: 05810f1827fd3ec4f9f28c8e65e4a167, type: 3}
+  - {fileID: 4399762351968658495, guid: 9eb5fb454cc7ea445807e5bdf1384961, type: 3}
+  - {fileID: 5215723851288746250, guid: f6830f893c96be04cab04ba5e7b6f9fd, type: 3}
+  - {fileID: 2536839188236714353, guid: c663be9639495a34a92e104d645c414d, type: 3}
+  enemyChanceCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.822342
+      value: 0.3407795
+      inSlope: 1.3613307
+      outSlope: 1.3613307
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 5.1937976
+      outSlope: 5.1937976
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.136759
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
