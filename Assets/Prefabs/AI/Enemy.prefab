@@ -109,11 +109,11 @@ MonoBehaviour:
   damageLayers:
     serializedVersion: 2
     m_Bits: 5760
-  maxNumberOfRounds: 10000
-  numberOfRounds: 10000
+  maxNumberOfRounds: 1
+  numberOfRounds: 1
   ammoSize: 10000
   ammoLeft: 10000
-  ammoTotal: 10000
+  ammoTotal: -1
   recharging: 0
   rechargingCooldown: 0
   bulletHolePrefab: {fileID: 5318123571427424048, guid: e29ad01da0b07ff48aa97e556e1fe490, type: 3}

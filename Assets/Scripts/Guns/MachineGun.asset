@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 426e864632226a14bba14c5a00ac31ea, type: 3}
+  m_Name: MachineGun
+  m_EditorClassIdentifier: 
+  name: Machine Gun
+  damage: 5
+  autoFire: 1
+  fireRate: 0.2
+  numberOfRounds: 1
+  accuracyRingRadius: 0.7
+  range: 100
+  ammoLeft: 50
+  ammoSize: 50
+  ammoTotal: 100
+  force: 100
+  model: {fileID: 6654526220647018764, guid: 6a76a3cb530f1cd4cb9150002607d25a, type: 3}
