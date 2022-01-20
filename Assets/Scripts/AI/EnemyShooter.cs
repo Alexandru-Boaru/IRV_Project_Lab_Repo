@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class EnemyShooter : CharacterShooter
 {
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         origin = transform;
         gun = transform;
     }
@@ -15,9 +16,5 @@ public class EnemyShooter : CharacterShooter
     {
         base.Update();
         origin = transform;
-        if (fireRateCooldown <= 0)
-        {
-            Recharge();
-        }
     }
 }
