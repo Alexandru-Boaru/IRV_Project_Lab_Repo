@@ -2700,6 +2700,7 @@ GameObject:
   - component: {fileID: 7304598118943134046}
   - component: {fileID: 7304598118943134033}
   - component: {fileID: 7304598118943134032}
+  - component: {fileID: 3055844323807040168}
   m_Layer: 7
   m_Name: Cylinder (1)
   m_TagString: Untagged
@@ -2772,6 +2773,49 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3055844323807040168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7304598118943134045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6000ca35b7a6bc84db86baa0866d6794, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: P_Shoot
+    clip: {fileID: 8300000, guid: 3c7cad1069a2e974c87d7350295375f3, type: 3}
+    volume: 0.486
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: SG_Shoot
+    clip: {fileID: 8300000, guid: 2ee605d7132579c47a456a7b880c8192, type: 3}
+    volume: 0.502
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: MG_Shoot
+    clip: {fileID: 8300000, guid: c034028fe70c8824caec7217df44beae, type: 3}
+    volume: 0.523
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: R_Shoot
+    clip: {fileID: 8300000, guid: 8585300248991314a9ee5aff0d6a27cc, type: 3}
+    volume: 0.491
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Dry_Shoot
+    clip: {fileID: 8300000, guid: 62b456fe0fcf8bb43ae2ed8fcbd6d4a7, type: 3}
+    volume: 0.507
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!1 &7304598118948585843
 GameObject:
   m_ObjectHideFlags: 0
@@ -8048,7 +8092,7 @@ Transform:
   m_GameObject: {fileID: 7304598119453385739}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -18.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 3495724257526135332}
   - {fileID: 7304598119961943782}
@@ -8106,7 +8150,7 @@ MonoBehaviour:
   capsule: {fileID: 7304598119453385741}
   groundedThreshold: 0.54
   grounded: 0
-  groundOffset: {x: 0, y: -1.92, z: 0}
+  groundOffset: {x: 0, y: -1.34, z: 0}
   groundMask:
     serializedVersion: 2
     m_Bits: 5969
@@ -8160,6 +8204,7 @@ MonoBehaviour:
   fillHpBar: {fileID: 1863345827592263731}
   invincible: 0
   invincibilityTimer: 3
+  instance: {fileID: 0}
 --- !u!1 &7304598119961943781
 GameObject:
   m_ObjectHideFlags: 0
@@ -8288,7 +8333,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7304598120150171691
 Transform:
   m_ObjectHideFlags: 0
@@ -8429,13 +8474,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43fe580421d516d4abe1b7a739243641, type: 3}
---- !u!1 &35910510313683804 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 43fe580421d516d4abe1b7a739243641, type: 3}
-  m_PrefabInstance: {fileID: 918450353077093901}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &807345857384112614 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 43fe580421d516d4abe1b7a739243641, type: 3}
+  m_PrefabInstance: {fileID: 918450353077093901}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &35910510313683804 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 43fe580421d516d4abe1b7a739243641, type: 3}
   m_PrefabInstance: {fileID: 918450353077093901}
   m_PrefabAsset: {fileID: 0}

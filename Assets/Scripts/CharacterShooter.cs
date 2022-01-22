@@ -70,7 +70,10 @@ public class CharacterShooter : MonoBehaviour
     public virtual void Shoot()
     {
         if (ammoLeft <= 0)
+        {
+            DryGun();
             return;
+        }
         if (fireRateCooldown > 0)
         {
             return;
@@ -100,7 +103,8 @@ public class CharacterShooter : MonoBehaviour
                 objectPooler.SpawnFromPool("bullet", bulletHolePosition, Quaternion.LookRotation(hit.normal), hit.transform);
                 if ((1<<hit.transform.gameObject.layer & damageLayers.value) != 0)
                 {
-                    hit.transform.GetComponent<Rigidbody>().AddForceAtPosition(currentShootDir * force, hit.point);
+                    if (hit.transform.TryGetComponent<Rigidbody>(out Rigidbody rb))
+                        rb.AddForceAtPosition(currentShootDir * force, hit.point);
                 }
                 EntityStats es = hit.transform.GetComponent<EntityStats>();
                 if (es != null)
@@ -212,5 +216,10 @@ public class CharacterShooter : MonoBehaviour
         destination = origin.position + shootDir * accuracyRingDistance + pf;
         dir = (destination - origin.position).normalized;
         
+    }
+
+    public virtual void DryGun()
+    {
+
     }
 }

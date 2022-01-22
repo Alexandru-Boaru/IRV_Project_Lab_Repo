@@ -19,6 +19,7 @@ public class GunSpecs
     public int ammoTotal;
 
     public float force;
+    public string gunSoundName;
 }
 public class PlayerShooter : CharacterShooter
 {
@@ -33,7 +34,7 @@ public class PlayerShooter : CharacterShooter
     public List<GunSpecs> guns;
 
     public GameObject cone;
-
+    public AudioController audioController;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -41,6 +42,8 @@ public class PlayerShooter : CharacterShooter
         origin = camera;
         shootDir = camera.forward;
         gum.StartGuns();
+        if(audioController == null)
+            audioController = GetComponentInChildren<AudioController>();
         SetGun(0);
     }
 
@@ -54,17 +57,20 @@ public class PlayerShooter : CharacterShooter
         if (autoFire && input.shootAuto)
         {
             Shoot();
+            audioController.Play(guns[currentGunId].gunSoundName);
             gum.UpdateGunUI();
         }
         else if(!autoFire && input.shootOnce)
         {
             Shoot();
             gum.UpdateGunUI();
+            audioController.Play(guns[currentGunId].gunSoundName);
             input.shootOnce = false;
         }
         if(!input.shootAuto)
         {
             input.shootOnce = false;
+            audioController.Stop(guns[currentGunId].gunSoundName);
         }
         if (input.mustRecharge)
         {
@@ -134,6 +140,11 @@ public class PlayerShooter : CharacterShooter
             ammoTotal += ammo;
             gum.UpdateGunUI();
         }
+    }
+
+    public override void DryGun()
+    {
+        audioController.Play("Dry_Shoot");
     }
 
     protected override void OnDrawGizmos()
