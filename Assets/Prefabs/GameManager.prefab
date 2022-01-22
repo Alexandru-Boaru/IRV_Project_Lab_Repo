@@ -201,7 +201,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a080de9797e279b488b964430dbedb2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
+  sounds:
+  - name: DryFire
+    clip: {fileID: 8300000, guid: 62b456fe0fcf8bb43ae2ed8fcbd6d4a7, type: 3}
+    volume: 0.497
+    pitch: 0.1
+    source: {fileID: 0}
+  - name: PistolShoot
+    clip: {fileID: 8300000, guid: 3c7cad1069a2e974c87d7350295375f3, type: 3}
+    volume: 0.491
+    pitch: 0.1
+    source: {fileID: 0}
+  - name: SG Shoot
+    clip: {fileID: 8300000, guid: 2ee605d7132579c47a456a7b880c8192, type: 3}
+    volume: 0.481
+    pitch: 0.1
+    source: {fileID: 0}
+  - name: MG Shoot
+    clip: {fileID: 8300000, guid: c034028fe70c8824caec7217df44beae, type: 3}
+    volume: 0.455
+    pitch: 0.1
+    source: {fileID: 0}
+  - name: R Shoot
+    clip: {fileID: 8300000, guid: 8585300248991314a9ee5aff0d6a27cc, type: 3}
+    volume: 0.496
+    pitch: 0.1
+    source: {fileID: 0}
 --- !u!1 &122291272884852302
 GameObject:
   m_ObjectHideFlags: 0

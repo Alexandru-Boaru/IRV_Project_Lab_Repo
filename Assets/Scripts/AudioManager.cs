@@ -12,6 +12,7 @@ public class Sound
     public float volume;
     [Range(.1f, 3f)]
     public float pitch;
+    public bool loop;
 
     [HideInInspector]
     public AudioSource source;
@@ -40,6 +41,7 @@ public class AudioManager : MonoBehaviour
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
             s.source.volume = s.volume;
+            s.source.loop = s.loop;
             s.source.pitch = s.pitch;
         }
     }
@@ -48,5 +50,11 @@ public class AudioManager : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s != null)
             s.source.Play();
+    }
+    public void Stop(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (s != null)
+            s.source.Stop();
     }
 }
