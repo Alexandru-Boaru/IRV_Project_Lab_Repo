@@ -67,7 +67,7 @@ public class CharacterShooter : MonoBehaviour
         fireRateCooldown -= fireRateCooldown < 0? 0 : Time.deltaTime;
     }
 
-    public void Shoot()
+    public virtual void Shoot()
     {
         if (ammoLeft <= 0)
             return;

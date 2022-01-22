@@ -11,10 +11,11 @@ public class AIMovement : CharacterMotion
     [SerializeField] float patrolSpeedPercentage = 0.4f;
     [SerializeField] float rotationSpeed = 3f;
     [SerializeField] LayerMask playerLayer;
-    [SerializeField] Transform player;
+    [SerializeField] public Transform player;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] EnemyShooter shooter;
     [SerializeField] Transform body;
+    [SerializeField] float shootingOffset = 1f;
 
     Vector3 targetPosition;
     Vector3 patrolPoint;
@@ -141,7 +142,8 @@ public class AIMovement : CharacterMotion
         agent.destination = transform.position; // Make character stop moving if player is in range
 
         // Fire logic
-        shooter.shootDir = player.position - shooter.transform.position;
+        // Shoot towards player + offset
+        shooter.shootDir = player.position - shooter.transform.position + new Vector3 (Random.value * shootingOffset, Random.value * shootingOffset, Random.value * shootingOffset);
         shooter.Shoot();
         //shooter.Recharge();
     }
