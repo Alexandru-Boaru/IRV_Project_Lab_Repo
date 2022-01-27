@@ -20,6 +20,7 @@ public class GunSpecs
 
     public float force;
     public string gunSoundName;
+    public GameObject gunModel;
 }
 public class PlayerShooter : CharacterShooter
 {
@@ -64,20 +65,20 @@ public class PlayerShooter : CharacterShooter
         if (autoFire && input.shootAuto)
         {
             Shoot();
-            audioController.Play(guns[currentGunId].gunSoundName);
+            if (audioController)  audioController.Play(guns[currentGunId].gunSoundName);
             gum.UpdateGunUI();
         }
         else if(!autoFire && input.shootOnce)
         {
             Shoot();
             gum.UpdateGunUI();
-            audioController.Play(guns[currentGunId].gunSoundName);
+            if (audioController) audioController.Play(guns[currentGunId].gunSoundName);
             input.shootOnce = false;
         }
         if(!input.shootAuto)
         {
             input.shootOnce = false;
-            audioController.Stop(guns[currentGunId].gunSoundName);
+            if (audioController)audioController.Stop(guns[currentGunId].gunSoundName);
         }
         if (input.mustRecharge)
         {
