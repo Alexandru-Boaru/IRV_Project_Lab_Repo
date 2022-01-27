@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4389278160089451246, guid: 09978e1443c28e64aa2b449f25fa3cf3, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6606045321008776203, guid: 09978e1443c28e64aa2b449f25fa3cf3, type: 3}
       propertyPath: m_Name
       value: BigTarget
@@ -424,6 +428,10 @@ PrefabInstance:
     - target: {fileID: 2673814669403232048, guid: 083db13ea03a0cb4589a3da267e7544d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4389278160089451246, guid: 083db13ea03a0cb4589a3da267e7544d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6606045321008776203, guid: 083db13ea03a0cb4589a3da267e7544d, type: 3}
       propertyPath: m_Name
@@ -984,6 +992,17 @@ MonoBehaviour:
   dead: 0
   brokenProp: {fileID: 3597336662386957570, guid: 7cb75ef2a0942e6408a89553062a7a45, type: 3}
   rigidB: {fileID: 0}
+--- !u!114 &634717861 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3055844323807040168, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
+  m_PrefabInstance: {fileID: 7304598119039236680}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6000ca35b7a6bc84db86baa0866d6794, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &783138629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1923,11 +1942,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 122291272782422279, guid: 4f48b4ecbfb02924395b8e06eafa27ac, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 960
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 122291272782422279, guid: 4f48b4ecbfb02924395b8e06eafa27ac, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 540
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 122291272782422279, guid: 4f48b4ecbfb02924395b8e06eafa27ac, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2274,6 +2293,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7304598118948585845, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
+      propertyPath: audioController
+      value: 
+      objectReference: {fileID: 634717861}
+    - target: {fileID: 7304598118948585845, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
+      propertyPath: guns.Array.data[0].gunSoundName
+      value: P_Shoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 7304598118948585845, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
+      propertyPath: guns.Array.data[1].gunSoundName
+      value: SG_Shoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 7304598118948585845, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
+      propertyPath: guns.Array.data[2].gunSoundName
+      value: MG_Shoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 7304598118948585845, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
+      propertyPath: guns.Array.data[3].gunSoundName
+      value: R_Shoot
+      objectReference: {fileID: 0}
     - target: {fileID: 7304598119453385739, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
       propertyPath: m_Name
       value: Player

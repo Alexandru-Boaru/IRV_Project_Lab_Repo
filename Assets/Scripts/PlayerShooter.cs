@@ -19,8 +19,7 @@ public class GunSpecs
     public int ammoTotal;
 
     public float force;
-
-    public GameObject gunModel;
+    public string gunSoundName;
 }
 public class PlayerShooter : CharacterShooter
 {
@@ -33,22 +32,18 @@ public class PlayerShooter : CharacterShooter
     public int currentGunId;
     public string gunName;
     public List<GunSpecs> guns;
-    public List<GunScriptableObject> gunObjects;
 
     public GameObject cone;
-
+    public AudioController audioController;
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
         origin = camera;
         shootDir = camera.forward;
-        guns.Clear();
-        foreach(GunScriptableObject gunObj in gunObjects)
-        {
-            guns.Add(gunObj.initializeGunSpecs(gun));
-        }
         gum.StartGuns();
+        if(audioController == null)
+            audioController = GetComponentInChildren<AudioController>();
         SetGun(0);
     }
 
@@ -62,17 +57,20 @@ public class PlayerShooter : CharacterShooter
         if (autoFire && input.shootAuto)
         {
             Shoot();
+            audioController.Play(guns[currentGunId].gunSoundName);
             gum.UpdateGunUI();
         }
         else if(!autoFire && input.shootOnce)
         {
             Shoot();
             gum.UpdateGunUI();
+            audioController.Play(guns[currentGunId].gunSoundName);
             input.shootOnce = false;
         }
         if(!input.shootAuto)
         {
             input.shootOnce = false;
+            audioController.Stop(guns[currentGunId].gunSoundName);
         }
         if (input.mustRecharge)
         {
@@ -129,13 +127,6 @@ public class PlayerShooter : CharacterShooter
         ammoTotal = gs.ammoTotal;
         force = gs.force;
         gum.UpdateGunUI();
-
-        foreach ( GunSpecs gunSpec in guns)
-        {
-            gunSpec.gunModel.SetActive(false);
-        }
-
-        gs.gunModel.SetActive(true);
     }
 
 
@@ -149,6 +140,11 @@ public class PlayerShooter : CharacterShooter
             ammoTotal += ammo;
             gum.UpdateGunUI();
         }
+    }
+
+    public override void DryGun()
+    {
+        audioController.Play("Dry_Shoot");
     }
 
     protected override void OnDrawGizmos()

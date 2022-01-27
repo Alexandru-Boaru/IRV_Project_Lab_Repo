@@ -2042,38 +2042,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 272760621940378492, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 272760621940378492, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7304598118943134045, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7304598118948585843, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7304598119087722902, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7304598119087722902, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7304598119087722923, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
-      propertyPath: m_RenderPostProcessing
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7304598119297135793, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7304598119453385739, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2081,10 +2049,6 @@ PrefabInstance:
     - target: {fileID: 7304598119453385740, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
       propertyPath: m_RootOrder
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7304598119453385740, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7304598119453385740, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2124,26 +2088,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7304598119453385740, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7304598119961943781, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7304598119961943781, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7304598120015135801, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7304598120150171690, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7304598120150171690, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
