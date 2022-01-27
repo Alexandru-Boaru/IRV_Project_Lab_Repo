@@ -32,6 +32,7 @@ public class PlayerShooter : CharacterShooter
     public int currentGunId;
     public string gunName;
     public List<GunSpecs> guns;
+    public List<GunScriptableObject> gunObjects;		
 
     public GameObject cone;
     public AudioController audioController;
@@ -41,6 +42,12 @@ public class PlayerShooter : CharacterShooter
         base.Start();
         origin = camera;
         shootDir = camera.forward;
+		guns.Clear();
+        foreach(GunScriptableObject gunObj in gunObjects)
+        {
+            guns.Add(gunObj.initializeGunSpecs(gun));
+        }
+		
         gum.StartGuns();
         if(audioController == null)
             audioController = GetComponentInChildren<AudioController>();
@@ -127,6 +134,13 @@ public class PlayerShooter : CharacterShooter
         ammoTotal = gs.ammoTotal;
         force = gs.force;
         gum.UpdateGunUI();
+		
+		foreach ( GunSpecs gunSpec in guns)
+        {
+            gunSpec.gunModel.SetActive(false);
+        }
+
+        gs.gunModel.SetActive(true);
     }
 
 
