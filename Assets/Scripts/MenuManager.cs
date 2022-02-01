@@ -14,11 +14,13 @@ public class MenuManager : MonoBehaviour
 
     public void NewGame()
     {
+        Time.timeScale = 1;
         LevelManager.instance.NewGame();
     }
 
     public void MainMenu()
     {
+        Time.timeScale = 1;
         LevelManager.instance.MainMenu();
     }
 

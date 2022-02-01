@@ -13,13 +13,35 @@ public class EnemySpawnTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == LayerMask.NameToLayer("Player") && !spawned)
+        if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            foreach(EnemySpawner es in spawners)
+            if (!spawned)
             {
-                es.Spawn();
+                foreach (EnemySpawner es in spawners)
+                {
+                    es.Spawn();
+                }
+                spawned = true;
             }
-            spawned = true;
+            else
+            {
+                foreach (EnemySpawner es in spawners)
+                {
+                    es.Activate(true);
+                }
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            Debug.Log("gosh");
+            foreach (EnemySpawner es in spawners)
+            {
+                es.Activate(false);
+            }
         }
     }
 }

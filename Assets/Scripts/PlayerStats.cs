@@ -9,7 +9,7 @@ public class PlayerStats : EntityStats
     public bool invincible = false;
     public float invincibilityTimer;
 
-    public PlayerStats instance;
+    public static PlayerStats instance;
 
     private void Awake()
     {

@@ -89,15 +89,7 @@ public class LevelManager : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1;
         SceneManager.LoadScene(id);
-        player.transform.position = Vector3.zero;
-        if (SceneManager.GetActiveScene().buildIndex > 0)
-            Cursor.lockState = CursorLockMode.Locked;
-        else
-            Cursor.lockState = CursorLockMode.None;
-        if(SceneManager.GetActiveScene().buildIndex > 0)
-        {
-            StartLevel();
-        }
+        
         //Spawn player in train
         //Run train
         //Randomly spawn flying enemies
@@ -110,8 +102,11 @@ public class LevelManager : MonoBehaviour
     public void StartLevel()
     {
         GameplayManager.instance.ResetCards();
-        player.SetActive(true);
+        //player.SetActive(true);
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        Debug.Log(SceneManager.GetActiveScene().buildIndex.ToString() + " cretin");
+        StartCoroutine(StartPlayer());
+        ResumeGame();
         //animate transition to maze
         //activate player
         //spawn enemies
@@ -125,6 +120,11 @@ public class LevelManager : MonoBehaviour
 
     public void NewGame()
     {
+        if (player != null)
+        {
+            player.SetActive(false);
+            Debug.Log("heiihiehei");
+        }
         GameplayManager.instance.ResetCards();
         GameplayManager.instance.ResetScore();
         currentLevel = 0;
@@ -154,10 +154,35 @@ public class LevelManager : MonoBehaviour
         {
             player.SetActive(false);
         }
+        if (SceneManager.GetActiveScene().buildIndex == 1 && !player.activeInHierarchy)
+        {
+            //GenerateLevel gl = FindObjectOfType<GenerateLevel>();
+            //if (gl != null && gl.checkLoadCompletion())
+            //{
+            //    player.transform.position = gl.GetStartingPosition();
+            //    player.SetActive(true);
+            //}
+        }
+
         //if(SceneManager.GetActiveScene().buildIndex == 1 && GameplayManager.instance.cards == 4)
         //{
 
         //}
+    }
+
+    public IEnumerator StartPlayer()
+    {
+        GenerateLevel gl = null;
+        Debug.Log("RIIII");
+        while (!(gl != null && gl.checkLoadCompletion()))
+        {
+            gl = FindObjectOfType<GenerateLevel>();
+            Debug.Log("bumbum");
+            yield return null;
+        }
+        
+        player.transform.position = gl.GetStartingPosition();
+        player.SetActive(true);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -169,6 +194,17 @@ public class LevelManager : MonoBehaviour
         else
         {
             canBePaused = false;
+        }
+        Debug.Log(scene.buildIndex.ToString() + " cretin");
+
+        //player.transform.position = Vector3.zero;
+        if (scene.buildIndex > 0)
+            Cursor.lockState = CursorLockMode.Locked;
+        else
+            Cursor.lockState = CursorLockMode.None;
+        if (scene.buildIndex > 0)
+        {
+            StartLevel();
         }
     }
 

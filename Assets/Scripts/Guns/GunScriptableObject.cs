@@ -42,8 +42,16 @@ public class GunScriptableObject : ScriptableObject
         gunModel.transform.parent = parentLocation;
         gunModel.transform.localPosition = model.transform.position;
         gunModel.transform.localRotation = model.transform.rotation;
-
+        gunModel.transform.localScale = model.transform.localScale;
         gunSpecs.gunModel = gunModel;
+        gunSpecs.muzzle = null;
+        foreach(Transform c in gunModel.transform)
+        {
+            if(c.tag == "Muzzle")
+            {
+                gunSpecs.muzzle = c;
+            }
+        }
         gunModel.SetActive(false);
 
 

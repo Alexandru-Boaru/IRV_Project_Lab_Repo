@@ -36,6 +36,10 @@ public class AIMovement : CharacterMotion
 
     private void Update()
     {
+        if(player == null)
+            player = PlayerStats.instance.gameObject.transform;
+        if (player == null)
+            return;
         LookForPlayer();
         
 

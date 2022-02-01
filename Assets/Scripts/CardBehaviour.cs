@@ -7,5 +7,6 @@ public class CardBehaviour : CollectableBehaviour
     public override void Collect()
     {
         GameplayManager.instance.GetCard();
+        base.Collect();
     }
 }

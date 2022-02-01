@@ -18,6 +18,8 @@ public class FirstPersonCamera : MonoBehaviour
     void Start()
     {
         //Cursor.lockState = CursorLockMode.Locked;
+        if(!FindObjectOfType<LevelManager>())
+            Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame

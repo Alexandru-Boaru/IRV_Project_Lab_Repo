@@ -9,6 +9,7 @@ public class EnemyShooter : CharacterShooter
         base.Start();
         origin = transform;
         gun = transform;
+        muzzlePoint = transform;
     }
 
     // Update is called once per frame

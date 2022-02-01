@@ -109,7 +109,7 @@ MonoBehaviour:
   damageLayers:
     serializedVersion: 2
     m_Bits: 5760
-  maxNumberOfRounds: 1
+  maxNumberOfRounds: 5
   numberOfRounds: 1
   ammoSize: 10000
   ammoLeft: 10000
@@ -125,6 +125,7 @@ MonoBehaviour:
   debugLineEffect: {fileID: 0}
   roundLines: []
   gun: {fileID: 895086119577674836}
+  muzzlePoint: {fileID: 895086119577674836}
 --- !u!1 &3458685780151300340
 GameObject:
   m_ObjectHideFlags: 0
@@ -5238,7 +5239,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8137080321719107333}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5341,7 +5342,7 @@ MonoBehaviour:
   sightRange: 10
   patrolRange: 4
   patrolSpeedPercentage: 0.4
-  rotationSpeed: 6
+  rotationSpeed: 7
   playerLayer:
     serializedVersion: 2
     m_Bits: 128

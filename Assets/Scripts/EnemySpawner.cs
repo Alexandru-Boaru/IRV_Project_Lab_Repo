@@ -8,6 +8,8 @@ public class EnemySpawner : MonoBehaviour
 {
     public EnemyType enemyType;
     public EnemyUnits enemyUnits;
+
+    public GameObject spawnedEnemy;
  
     // Start is called before the first frame update
     public void Spawn()
@@ -21,6 +23,12 @@ public class EnemySpawner : MonoBehaviour
         {
             pref = enemyUnits.enemies.Find(x => (x.enemyType == enemyType)).enemyPrefab;
         }
+        spawnedEnemy = pref;
         Instantiate(pref, transform);
+    }
+
+    public void Activate(bool state)
+    {
+        spawnedEnemy.SetActive(state);
     }
 }

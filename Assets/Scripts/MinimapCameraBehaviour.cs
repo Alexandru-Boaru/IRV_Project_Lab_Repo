@@ -14,11 +14,14 @@ public class MinimapCameraBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (PlayerStats.instance != null)
+        {
+            mainCamera = PlayerStats.instance.GetComponentInChildren<Camera>();
+        }
     }
 
     private void LateUpdate() {
-        transform.localRotation = Quaternion.Euler(90f, mainCamera.transform.rotation.eulerAngles.y, 0);
+        transform.rotation = Quaternion.Euler(90f, mainCamera.transform.rotation.eulerAngles.y, 0);
         transform.position = new Vector3(mainCamera.transform.position.x, transform.position.y, mainCamera.transform.position.z);
     }
 }

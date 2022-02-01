@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 94294848121080962}
   - component: {fileID: 1848502489403821812}
   - component: {fileID: -4980332183872355255}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Eight Basic Enemies
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,6 +66,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawners: []
+  spawned: 0
 --- !u!1001 &863804013981141785
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76,6 +77,10 @@ PrefabInstance:
     - target: {fileID: 4844752289948121440, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
       propertyPath: m_Name
       value: EnemySpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844752289948121440, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6159606367720344143, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
       propertyPath: m_RootOrder
@@ -139,6 +144,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 4844752289948121440, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 6159606367720344143, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -200,6 +209,10 @@ PrefabInstance:
     - target: {fileID: 4844752289948121440, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
       propertyPath: m_Name
       value: EnemySpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844752289948121440, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6159606367720344143, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
       propertyPath: m_RootOrder
@@ -263,6 +276,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 4844752289948121440, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 6159606367720344143, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -324,6 +341,10 @@ PrefabInstance:
     - target: {fileID: 4844752289948121440, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
       propertyPath: m_Name
       value: EnemySpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844752289948121440, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6159606367720344143, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
       propertyPath: m_RootOrder
@@ -387,6 +408,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 4844752289948121440, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 6159606367720344143, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -449,6 +474,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 4844752289948121440, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 6159606367720344143, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -510,6 +539,10 @@ PrefabInstance:
     - target: {fileID: 4844752289948121440, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
       propertyPath: m_Name
       value: EnemySpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844752289948121440, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6159606367720344143, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
       propertyPath: m_RootOrder

@@ -44,6 +44,7 @@ public class CharacterShooter : MonoBehaviour
     public GameObject debugLineEffect;
     public List<GameObject> roundLines = new List<GameObject>();
     public Transform gun;
+    public Transform muzzlePoint;
     private IEnumerator leCor;
     
     // Start is called before the first frame update
@@ -53,7 +54,7 @@ public class CharacterShooter : MonoBehaviour
         objectPooler = ObjectPooler.Instance;
         for(int i = 0; i < maxNumberOfRounds; i++)
         {
-            GameObject le = Instantiate(lineEffect, gun, true);
+            GameObject le = Instantiate(lineEffect, muzzlePoint, true);
             le.layer = LayerMask.NameToLayer("FX");
             le.SetActive(false);
             roundLines.Add(le);
@@ -65,10 +66,14 @@ public class CharacterShooter : MonoBehaviour
     protected virtual void Update()
     {
         fireRateCooldown -= fireRateCooldown < 0? 0 : Time.deltaTime;
+        if (objectPooler == null)
+            objectPooler = ObjectPooler.Instance;
     }
 
     public virtual void Shoot()
     {
+        if (LevelManager.instance.isPaused)
+            return;
         if (ammoLeft <= 0)
         {
             DryGun();
@@ -80,48 +85,51 @@ public class CharacterShooter : MonoBehaviour
         }
         if (recharging)
             return;
-        for (int i = 0; i < numberOfRounds; i++)
+        if (objectPooler != null)
         {
-            Vector3 v = origin.up * (Random.Range(0f, 1f) * accuracyRingRadius);
-            v = Quaternion.AngleAxis(Random.Range(0f, 360f), shootDir) * v;
-            Vector3 destination = origin.position + shootDir * accuracyRingDistance + v;
-            Vector3 currentShootDir = (destination - origin.position).normalized;
-            Debug.DrawLine(origin.position, origin.position + currentShootDir * range, Color.cyan, 0.2f);
+            for (int i = 0; i < numberOfRounds; i++)
+            {
+                Vector3 v = origin.up * (Random.Range(0f, 1f) * accuracyRingRadius);
+                v = Quaternion.AngleAxis(Random.Range(0f, 360f), shootDir) * v;
+                Vector3 destination = origin.position + shootDir * accuracyRingDistance + v;
+                Vector3 currentShootDir = (destination - origin.position).normalized;
+                Debug.DrawLine(origin.position, origin.position + currentShootDir * range, Color.cyan, 0.2f);
 
-            Vector3 bulletHolePosition = origin.position + currentShootDir * range;
-            
-            RaycastHit hit;
-            if(Physics.Raycast(origin.position, currentShootDir, out hit, range, targetLayers.value))
-            {
-                Debug.Log(hit.transform.name);
-                bulletHolePosition = hit.point + hit.normal * 0.001f;
-                /*
-                GameObject bh = Instantiate(bulletHolePrefab, bulletHolePosition, Quaternion.LookRotation(hit.normal));
-                bh.transform.SetParent(hit.transform, true);
-                Destroy(bh, timeToDestroyHole);
-                */
-                objectPooler.SpawnFromPool("bullet", bulletHolePosition, Quaternion.LookRotation(hit.normal), hit.transform);
-                if ((1<<hit.transform.gameObject.layer & damageLayers.value) != 0)
+                Vector3 bulletHolePosition = origin.position + currentShootDir * range;
+
+                RaycastHit hit;
+                if (Physics.Raycast(origin.position, currentShootDir, out hit, range, targetLayers.value))
                 {
-                    if (hit.transform.TryGetComponent<Rigidbody>(out Rigidbody rb))
-                        rb.AddForceAtPosition(currentShootDir * force, hit.point);
+                    Debug.Log(hit.transform.name);
+                    bulletHolePosition = hit.point + hit.normal * 0.001f;
+                    /*
+                    GameObject bh = Instantiate(bulletHolePrefab, bulletHolePosition, Quaternion.LookRotation(hit.normal));
+                    bh.transform.SetParent(hit.transform, true);
+                    Destroy(bh, timeToDestroyHole);
+                    */
+                    objectPooler.SpawnFromPool("bullet", bulletHolePosition, Quaternion.LookRotation(hit.normal), hit.transform);
+                    if ((1 << hit.transform.gameObject.layer & damageLayers.value) != 0)
+                    {
+                        if (hit.transform.TryGetComponent<Rigidbody>(out Rigidbody rb))
+                            rb.AddForceAtPosition(currentShootDir * force, hit.point);
+                    }
+                    EntityStats es = hit.transform.GetComponent<EntityStats>();
+                    if (es != null)
+                    {
+                        es.TakeDamage(damage);
+                    }
                 }
-                EntityStats es = hit.transform.GetComponent<EntityStats>();
-                if (es != null)
+                if (leCor != null)
                 {
-                    es.TakeDamage(damage);
+                    StopCoroutine(leCor);
                 }
+                roundLines[i].SetActive(false);
+                roundLines[i].GetComponent<LineRenderer>().SetPosition(0, muzzlePoint.position);
+                roundLines[i].GetComponent<LineRenderer>().SetPosition(1, bulletHolePosition);
+                roundLines[i].SetActive(true);
+                leCor = LineEffectCounter();
+                StartCoroutine(leCor);
             }
-            if (leCor != null)
-            {
-                StopCoroutine(leCor);
-            }
-            roundLines[i].SetActive(false);
-            roundLines[i].GetComponent<LineRenderer>().SetPosition(0, gun.position);
-            roundLines[i].GetComponent<LineRenderer>().SetPosition(1, bulletHolePosition);
-            roundLines[i].SetActive(true);
-            leCor = LineEffectCounter();
-            StartCoroutine(leCor);
         }
 
         ammoLeft--;

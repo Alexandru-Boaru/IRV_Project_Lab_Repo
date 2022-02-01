@@ -21,6 +21,7 @@ public class GunSpecs
     public float force;
     public string gunSoundName;
     public GameObject gunModel;
+    public Transform muzzle;
 }
 public class PlayerShooter : CharacterShooter
 {
@@ -142,6 +143,10 @@ public class PlayerShooter : CharacterShooter
         }
 
         gs.gunModel.SetActive(true);
+        if (gs.muzzle == null)
+            muzzlePoint.position = gun.position;
+        else
+            muzzlePoint.position = gs.muzzle.position;
     }
 
 

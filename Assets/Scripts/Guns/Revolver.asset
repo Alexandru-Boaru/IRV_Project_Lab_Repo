@@ -23,4 +23,4 @@ MonoBehaviour:
   ammoSize: 6
   ammoTotal: 6
   force: 1000
-  model: {fileID: 1728645685170818095, guid: f0a2b62350565c144950266670b12ced, type: 3}
+  model: {fileID: 1604650248748398, guid: 1c38d01b37b46554786a8da9ffb9e896, type: 3}

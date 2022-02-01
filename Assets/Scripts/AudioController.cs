@@ -16,6 +16,7 @@ public class AudioController : MonoBehaviour
             s.source.volume = s.volume;
             s.source.loop = s.loop;
             s.source.pitch = s.pitch;
+            s.source.playOnAwake = false;
         }
     }
     public void Play(string name)

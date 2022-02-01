@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5215723851288746251}
   - component: {fileID: 8357655548436469588}
   - component: {fileID: -6173337118841399108}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Three Basic Enemies
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,6 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawners: []
+  spawned: 0
 --- !u!1001 &5215723850373651813
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71,6 +72,10 @@ PrefabInstance:
     - target: {fileID: 4844752289948121440, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
       propertyPath: m_Name
       value: EnemySpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844752289948121440, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6159606367720344143, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
       propertyPath: m_RootOrder
@@ -134,6 +139,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 4844752289948121440, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 6159606367720344143, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -195,6 +204,10 @@ PrefabInstance:
     - target: {fileID: 4844752289948121440, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
       propertyPath: m_Name
       value: EnemySpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844752289948121440, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6159606367720344143, guid: d6a2d7f82fa70704084c5859ae9dd4cb, type: 3}
       propertyPath: m_RootOrder
