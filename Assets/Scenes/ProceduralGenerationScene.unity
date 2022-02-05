@@ -551,11 +551,11 @@ MonoBehaviour:
   requiredCollectables: 5
   maxCollectables: 40
   pieces:
-  - {fileID: 7939915588764806314, guid: 7bc09112a65d6c24ca58826d6601360e, type: 3}
-  - {fileID: 7939915588764806314, guid: b0ecb78a4f244bd4591c5fd130b3df51, type: 3}
-  - {fileID: 7939915588764806314, guid: cd59c74b7e1162741a220bf4779c1216, type: 3}
-  - {fileID: 7939915588764806314, guid: d2f726309761b0147805582628c5df7d, type: 3}
-  - {fileID: 7939915588764806314, guid: d84eea904a0cdec4a864dd2074fe3947, type: 3}
+  - {fileID: 7939915588764806314, guid: 365cba184beeae6479f7252604c36519, type: 3}
+  - {fileID: 7939915588764806314, guid: 0d5fe362a044c7c449b77a952dde9158, type: 3}
+  - {fileID: 7939915588764806314, guid: 4cdb190babd8717498c8b4dc45d7ef02, type: 3}
+  - {fileID: 7939915588764806314, guid: 78e41977aa20e474e9e1b106e86a0422, type: 3}
+  - {fileID: 7939915588764806314, guid: 383659b7af343ad49b5e8f5cdb7d9f09, type: 3}
   mazeParent: {fileID: 1924328071}
   collectableParent: {fileID: 806842957}
   collectable: {fileID: 1347496440016190223, guid: 6ca48eeeb5a510645aebd83d7e4810c5, type: 3}
@@ -674,7 +674,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
