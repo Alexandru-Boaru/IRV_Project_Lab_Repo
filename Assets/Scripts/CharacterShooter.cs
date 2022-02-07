@@ -100,7 +100,7 @@ public class CharacterShooter : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(origin.position, currentShootDir, out hit, range, targetLayers.value))
                 {
-                    Debug.Log(hit.transform.name);
+                    // Debug.Log(hit.transform.name);
                     bulletHolePosition = hit.point + hit.normal * 0.001f;
                     /*
                     GameObject bh = Instantiate(bulletHolePrefab, bulletHolePosition, Quaternion.LookRotation(hit.normal));

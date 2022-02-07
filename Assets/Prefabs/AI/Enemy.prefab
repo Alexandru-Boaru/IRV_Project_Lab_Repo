@@ -5351,6 +5351,10 @@ MonoBehaviour:
   shooter: {fileID: 7812867024624881743}
   body: {fileID: 9193951960179362286}
   shootingOffset: 1
+  worldPos: {x: 0, y: 0, z: 0}
+  VisibleLayers:
+    serializedVersion: 2
+    m_Bits: 5057
 --- !u!54 &8137080321719107340
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5462,7 +5466,7 @@ PrefabInstance:
     - target: {fileID: -5021489283424200784, guid: ed8616cdf4883d741a7a532267e26153, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 574715c136b86e84f9086e484ecdd2f5, type: 2}
+      objectReference: {fileID: 2100000, guid: 509dd18041972334589cb2bf97a42c5f, type: 2}
     - target: {fileID: -2312011752643629498, guid: ed8616cdf4883d741a7a532267e26153, type: 3}
       propertyPath: m_RootOrder
       value: 2

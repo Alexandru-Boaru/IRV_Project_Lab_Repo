@@ -44,7 +44,7 @@ public class GunUIManager : MonoBehaviour
         float h = bulletBar.sizeDelta.y;
         float bw = w / mb;
         bulletGrid.cellSize = new Vector2(bw, bulletGrid.cellSize.y);
-        Debug.Log(bulletPieces.Count + " " + maxBullets);
+        // Debug.Log(bulletPieces.Count + " " + maxBullets);
         for (int i = 0; i < maxBullets; i++)
         {
             if (i < lb)

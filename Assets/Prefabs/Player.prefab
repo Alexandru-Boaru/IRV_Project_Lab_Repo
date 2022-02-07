@@ -3180,7 +3180,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -8330,7 +8330,6 @@ MonoBehaviour:
   fillHpBar: {fileID: 1863345827592263731}
   invincible: 0
   invincibilityTimer: 3
-  instance: {fileID: 0}
 --- !u!23 &925428739
 MeshRenderer:
   m_ObjectHideFlags: 0
