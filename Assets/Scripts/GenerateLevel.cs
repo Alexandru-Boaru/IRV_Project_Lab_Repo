@@ -161,7 +161,7 @@ public class GenerateLevel : MonoBehaviour
 
     public Vector3 GetStartingPosition()
     {
-        return mazeParent.transform.position + new Vector3(0,5,0);
+        return mazeParent.transform.position + new Vector3(0,10,0);
     }
 
     public void GenerateNavMeshes()
