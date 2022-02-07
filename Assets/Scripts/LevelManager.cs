@@ -202,7 +202,7 @@ public class LevelManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
         else
             Cursor.lockState = CursorLockMode.None;
-        if (scene.buildIndex > 0)
+        if (scene.buildIndex > 0 && player != null)
         {
             StartLevel();
         }
