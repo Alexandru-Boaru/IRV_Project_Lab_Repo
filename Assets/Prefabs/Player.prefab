@@ -3069,7 +3069,7 @@ MonoBehaviour:
   ammoLeft: 0
   ammoTotal: 0
   recharging: 0
-  rechargingCooldown: 0
+  rechargingCooldown: 0.7
   bulletHolePrefab: {fileID: 5318123571427424048, guid: e29ad01da0b07ff48aa97e556e1fe490, type: 3}
   objectPooler: {fileID: 0}
   timeToDestroyHole: 10
@@ -3083,7 +3083,7 @@ MonoBehaviour:
   camera: {fileID: 7304598119087722921}
   angle: 0
   input: {fileID: 7304598119453385743}
-  anim: {fileID: 0}
+  anim: {fileID: 1130845723}
   gum: {fileID: 1863345826631139001}
   currentGunId: 0
   gunName: 
@@ -8544,6 +8544,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7304598120015135802}
   - component: {fileID: 2017852445}
+  - component: {fileID: 1130845723}
   m_Layer: 7
   m_Name: Gun
   m_TagString: Untagged
@@ -8587,7 +8588,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: SG_Shoot
     clip: {fileID: 8300000, guid: 2ee605d7132579c47a456a7b880c8192, type: 3}
-    volume: 0.502
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -8599,7 +8600,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: R_Shoot
     clip: {fileID: 8300000, guid: 8585300248991314a9ee5aff0d6a27cc, type: 3}
-    volume: 0.491
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -8609,6 +8610,25 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+--- !u!95 &1130845723
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7304598120015135801}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a2f087b76e6a9c448abd81e44bea4baf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7304598120150171690
 GameObject:
   m_ObjectHideFlags: 0

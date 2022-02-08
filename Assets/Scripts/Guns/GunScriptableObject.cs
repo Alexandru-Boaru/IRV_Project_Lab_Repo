@@ -20,6 +20,7 @@ public class GunScriptableObject : ScriptableObject
     [SerializeField] float force = 200;
 
     [SerializeField] GameObject model;
+    [SerializeField] string gunSoundName;
 
     public GunSpecs initializeGunSpecs(Transform parentLocation)
     {
@@ -45,6 +46,7 @@ public class GunScriptableObject : ScriptableObject
         gunModel.transform.localScale = model.transform.localScale;
         gunSpecs.gunModel = gunModel;
         gunSpecs.muzzle = null;
+        gunSpecs.gunSoundName = gunSoundName;
         foreach(Transform c in gunModel.transform)
         {
             if(c.tag == "Muzzle")

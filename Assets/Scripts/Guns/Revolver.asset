@@ -24,3 +24,4 @@ MonoBehaviour:
   ammoTotal: 6
   force: 1000
   model: {fileID: 1604650248748398, guid: 1c38d01b37b46554786a8da9ffb9e896, type: 3}
+  gunSoundName: R_Shoot

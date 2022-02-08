@@ -9,7 +9,7 @@ public class CharacterShooter : MonoBehaviour
     public int damage;
     public float fireRate;
     [SerializeField]
-    protected float fireRateCooldown;
+    public float fireRateCooldown;
     public float range;
     public float accuracyRingRadius;
     public float accuracyRingDistance;

@@ -24,3 +24,4 @@ MonoBehaviour:
   ammoTotal: 100
   force: 100
   model: {fileID: 1587966684976882, guid: c0bf9d1fd848d554abda1ef59eb498bc, type: 3}
+  gunSoundName: MG_Shoot

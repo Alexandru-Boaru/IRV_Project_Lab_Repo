@@ -24,3 +24,4 @@ MonoBehaviour:
   ammoTotal: -1
   force: 200
   model: {fileID: 1425814443739648, guid: b8472c75b2bc2ee4b98e87869dace24f, type: 3}
+  gunSoundName: P_Shoot

@@ -65,29 +65,50 @@ public class PlayerShooter : CharacterShooter
             return;
         if (autoFire && input.shootAuto)
         {
+            if (ammoLeft > 0 && fireRateCooldown <= 0 && !recharging)
+            {
+                if (audioController) audioController.Play(guns[currentGunId].gunSoundName);
+            }
+            if (fireRateCooldown < 0)
+                anim.SetTrigger("shoot");
             Shoot();
-            if (audioController)  audioController.Play(guns[currentGunId].gunSoundName);
+            
             gum.UpdateGunUI();
         }
         else if(!autoFire && input.shootOnce)
         {
+            if (ammoLeft > 0 && fireRateCooldown <= 0 && !recharging)
+            {
+                if (audioController) audioController.Play(guns[currentGunId].gunSoundName);
+            }
+            if (fireRateCooldown < 0)
+                anim.SetTrigger("shoot");
             Shoot();
             gum.UpdateGunUI();
-            if (audioController) audioController.Play(guns[currentGunId].gunSoundName);
+            //if (audioController) audioController.Play(guns[currentGunId].gunSoundName);
             input.shootOnce = false;
         }
         if(!input.shootAuto)
         {
             input.shootOnce = false;
-            if (audioController)audioController.Stop(guns[currentGunId].gunSoundName);
+        }
+        if (!input.shootAuto)
+        {
+            anim.SetBool("shootAuto", false);
+        }
+        if (!input.shootAuto && autoFire)
+        {
+            if (audioController) audioController.Stop(guns[currentGunId].gunSoundName);
         }
         if (input.mustRecharge)
         {
             Recharge();
             gum.UpdateGunUI();
+            anim.SetTrigger("recharge");
             input.mustRecharge = false;
         }
         SwitchWeapon();
+        anim.SetInteger("bulletsLeft", ammoLeft);
         SetConeScale();
 
     }

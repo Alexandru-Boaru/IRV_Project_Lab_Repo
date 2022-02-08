@@ -29,12 +29,16 @@ public class AIMovement : CharacterMotion
     private Quaternion _lookRotation;
     private Vector3 _direction;
 
+    public AudioController audioController;
+
     void OnEnable()
     {
         targetPosition = transform.position;
         agent.updateRotation = false;
         SetPatrolPoint();
         shooter = GetComponentInChildren<EnemyShooter>();
+        if (audioController == null)
+            audioController = GetComponentInChildren<AudioController>();
     }
 
     /*
@@ -197,6 +201,10 @@ public class AIMovement : CharacterMotion
         // Fire logic
         // Shoot towards player + offset
         shooter.shootDir = player.position - shooter.transform.position + new Vector3 (Random.value * shootingOffset, Random.value * shootingOffset, Random.value * shootingOffset);
+        if (shooter.fireRateCooldown < 0)
+        {
+            if (audioController) audioController.Play("P_Shoot");
+        }
         shooter.Shoot();
         //shooter.Recharge();
     }

@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 7195430225404687211}
   - component: {fileID: 9141964254107806222}
   - component: {fileID: 7812867024624881743}
+  - component: {fileID: 4535138842739050005}
   m_Layer: 8
   m_Name: Weapon
   m_TagString: Untagged
@@ -207,6 +208,25 @@ MonoBehaviour:
   roundLines: []
   gun: {fileID: 895086119577674836}
   muzzlePoint: {fileID: 895086119577674836}
+--- !u!114 &4535138842739050005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2783761248889220981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6000ca35b7a6bc84db86baa0866d6794, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: P_Shoot
+    clip: {fileID: 8300000, guid: 3c7cad1069a2e974c87d7350295375f3, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!1 &3458685780151300340
 GameObject:
   m_ObjectHideFlags: 0
@@ -5437,6 +5457,9 @@ MonoBehaviour:
   VisibleLayers:
     serializedVersion: 2
     m_Bits: 5057
+  resetPatrolTime: 10
+  patrolTime: 0
+  audioController: {fileID: 0}
 --- !u!54 &8137080321719107340
 Rigidbody:
   m_ObjectHideFlags: 0
