@@ -23,12 +23,15 @@ public class EnemySpawner : MonoBehaviour
         {
             pref = enemyUnits.enemies.Find(x => (x.enemyType == enemyType)).enemyPrefab;
         }
-        spawnedEnemy = pref;
-        Instantiate(pref, transform);
+        spawnedEnemy = Instantiate(pref, transform);
     }
 
     public void Activate(bool state)
     {
-        spawnedEnemy.SetActive(state);
+        if (spawnedEnemy != null)
+        {
+            //Debug.Log(state);
+            spawnedEnemy.SetActive(state);
+        }
     }
 }

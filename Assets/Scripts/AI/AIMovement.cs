@@ -18,6 +18,8 @@ public class AIMovement : CharacterMotion
     [SerializeField] float shootingOffset = 1f;
     [SerializeField] Vector3 worldPos;
     public LayerMask VisibleLayers;
+    public float resetPatrolTime = 10f;
+    public float patrolTime = 0f;
 
     Vector3 targetPosition;
     Vector3 patrolPoint;
@@ -35,6 +37,15 @@ public class AIMovement : CharacterMotion
         shooter = GetComponentInChildren<EnemyShooter>();
     }
 
+    /*
+    void Start()
+    {
+        rigidbody = GetComponent<Rigidbody>();
+        if (floatingCharacter)
+            rigidbody.useGravity = false;
+        StartCoroutine(OffMeshMovement());
+    }
+    */
 
     private void Update()
     {
@@ -57,6 +68,8 @@ public class AIMovement : CharacterMotion
             ApplyMovement();
         }
         CheckGrounded();
+        if (patrolTime > 0)
+            patrolTime -= Time.deltaTime;
     }
 
     void LookAtTarget(Vector3 lookAt)
@@ -86,7 +99,7 @@ public class AIMovement : CharacterMotion
         else
         {
             //targetPosition = transform.position + transform.forward;
-            UpdatePatrolDestination();
+            //UpdatePatrolDestination();
         }
     }
 
@@ -103,25 +116,50 @@ public class AIMovement : CharacterMotion
         Vector2 player2D = new Vector2(player.position.x, player.position.z);
 
         // Get closer to target point:
-        if ((!playerInSight && Vector2.Distance(transform2D, target2D) > 1f) || // If not seeing player
+        if ((!playerInSight && (Vector2.Distance(transform2D, target2D) > 1f) || patrolTime <= 0) || // If not seeing player
             (playerInSight && Vector2.Distance(transform2D, player2D) > attackRange - 1)) // If seeing player but not close enough to shoot
                                                                                                         // (also some extra distance to be able to keep shooting)
         {
             agent.speed = moveSpeed;
             agent.destination = targetPosition;
+            patrolTime = resetPatrolTime;
         }
         else if (!playerInSight)
         {
             //agent.destination = transform.position;
             agent.speed = moveSpeed * patrolSpeedPercentage;
+            patrolTime = resetPatrolTime;
             UpdatePatrolDestination();
         }
     }
 
+    /*
+    IEnumerator OffMeshMovement()
+    {
+        while (true)
+        {
+            if (agent.isOnOffMeshLink)
+            {
+                yield return StartCoroutine(NormalSpeed(agent));
+            }
+            yield return null;
+        }
+    }
 
+    IEnumerator NormalSpeed(NavMeshAgent agent)
+    {
+        OffMeshLinkData data = agent.currentOffMeshLinkData;
+        Vector3 endPos = data.endPos + Vector3.up * agent.baseOffset;
+        while (agent.transform.position != endPos)
+        {
+            agent.transform.position = Vector3.MoveTowards(agent.transform.position, endPos, agent.speed * Time.deltaTime);
+            yield return null;
+        }
+    }
+    */
     private void OnDrawGizmos()
     {
-        Gizmos.DrawRay(transform.position, transform.InverseTransformPoint(player.position));
+        //Gizmos.DrawRay(transform.position, transform.InverseTransformPoint(player.position));
         Gizmos.DrawSphere(targetPosition, 0.1f);
     }
 

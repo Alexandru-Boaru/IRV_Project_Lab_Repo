@@ -38,9 +38,12 @@ public class EnemySpawnTrigger : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             //Debug.Log("gosh");
-            foreach (EnemySpawner es in spawners)
+            if (spawned)
             {
-                es.Activate(false);
+                foreach (EnemySpawner es in spawners)
+                {
+                    es.Activate(false);
+                }
             }
         }
     }
