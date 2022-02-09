@@ -21,7 +21,10 @@ public class MinimapCameraBehaviour : MonoBehaviour
     }
 
     private void LateUpdate() {
-        transform.rotation = Quaternion.Euler(90f, mainCamera.transform.rotation.eulerAngles.y, 0);
-        transform.position = new Vector3(mainCamera.transform.position.x, transform.position.y, mainCamera.transform.position.z);
+        if (mainCamera != null)
+        {
+            transform.rotation = Quaternion.Euler(90f, mainCamera.transform.rotation.eulerAngles.y, 0);
+            transform.position = new Vector3(mainCamera.transform.position.x, transform.position.y, mainCamera.transform.position.z);
+        }
     }
 }

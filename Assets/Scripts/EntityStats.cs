@@ -18,7 +18,7 @@ public class EntityStats : MonoBehaviour
         if (dead)
             return;
         hitPoints -= hp;
-        if (hitPoints < 0)
+        if (hitPoints <= 0)
         {
             //dies
             dead = true;

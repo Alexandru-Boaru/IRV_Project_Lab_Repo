@@ -24,7 +24,8 @@ public class TargetStats : EntityStats
     public int numberOfRewards = 7;
     protected override void Die()
     {
-        GameplayManager.instance.UpdateScore(scoreReward);
+        if(GameplayManager.instance!=null)
+            GameplayManager.instance.UpdateScore(scoreReward);
         GetRandomReward();
         base.Die();
     }

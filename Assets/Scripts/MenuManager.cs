@@ -41,7 +41,7 @@ public class MenuManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && LevelManager.instance.canBePaused)
+        if(Input.GetKeyDown(KeyCode.Escape) && LevelManager.instance.canBePaused && !PlayerStats.instance.dead)
         {
             if (LevelManager.instance.isPaused)
             {

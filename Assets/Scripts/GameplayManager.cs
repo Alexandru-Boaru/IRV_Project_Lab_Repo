@@ -6,6 +6,7 @@ public class GameplayManager : MonoBehaviour
 {
     public int score;
     public int cards;
+    public int cardsToCollect;
 
     public static GameplayManager instance;
 
@@ -47,10 +48,17 @@ public class GameplayManager : MonoBehaviour
     public void GetCard()
     {
         cards++;
+        if (cards == cardsToCollect)
+            LevelManager.instance.EndLevel();
     }
 
     public void UpdateScore(int s)
     {
         score += s;
+    }
+
+    public void SetCardsToCollect(int level)
+    {
+        cardsToCollect = 3 + Mathf.FloorToInt(Mathf.Log(level, 2));
     }
 }

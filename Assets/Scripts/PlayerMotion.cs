@@ -7,7 +7,7 @@ public class PlayerMotion : CharacterMotion
     public PlayerInput input;
     public new Transform camera;
     public PhysicMaterial sliperryMaterial;
-   
+    public bool frozen = false; 
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +18,8 @@ public class PlayerMotion : CharacterMotion
     // Update is called once per frame
     void Update()
     {
+        if (frozen)
+            return;
         ApplyMovement();
         CheckGrounded();
         if (input.mustJump)
@@ -37,5 +39,11 @@ public class PlayerMotion : CharacterMotion
         else
             speedMultipler = 1;
         
+    }
+
+    public void Freeze(bool status)
+    {
+        frozen = status;
+        rigidbody.isKinematic = status;
     }
 }

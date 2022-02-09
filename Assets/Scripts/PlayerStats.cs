@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerStats : EntityStats
 {
@@ -9,7 +10,11 @@ public class PlayerStats : EntityStats
     public bool invincible = false;
     public float invincibilityTimer;
 
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI finalScoreText;
+    public TextMeshProUGUI questText;
     public static PlayerStats instance;
+    public GameObject gameOverPanel;
 
     private void Awake()
     {
@@ -31,6 +36,14 @@ public class PlayerStats : EntityStats
         
     }
 
+    public void ResetPlayer()
+    {
+        invincible = false;
+        hitPoints = maxHitPoints;
+        fillHpBar.fillAmount = ((float)hitPoints) / maxHitPoints;
+        GetComponentInChildren<PlayerShooter>().ResetPlayerGun();
+    }
+
     public override void TakeDamage(int hp)
     {
         if (invincible)
@@ -49,6 +62,10 @@ public class PlayerStats : EntityStats
     protected override void Die()
     {
         dead = true;
+        gameOverPanel.SetActive(true);
+        finalScoreText.text = $"Final Score: {GameplayManager.instance.score}";
+        Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 0;
         //gameOver.Invoke();
     }
 
@@ -57,6 +74,33 @@ public class PlayerStats : EntityStats
         invincible = true;
         yield return new WaitForSeconds(invincibilityTimer);
         invincible = false;
+    }
+
+    private void Update()
+    {
+        scoreText.text = ("Score: " + (GameplayManager.instance==null?"0":GameplayManager.instance.score.ToString()));
+        questText.text = $"Collect blue boxes ({GameplayManager.instance.cards}/{GameplayManager.instance.cardsToCollect})";
+    }
+
+    public void ShowQuestUI(bool status)
+    {
+        questText.gameObject.SetActive(status);
+    }
+
+    public void NewGame()
+    {
+        Time.timeScale = 1;
+        gameOverPanel.SetActive(false);
+        base.Die();
+        LevelManager.instance.NewGame();
+    }
+
+    public void MainMenu()
+    {
+        Time.timeScale = 1;
+        gameOverPanel.SetActive(false);
+        base.Die();
+        LevelManager.instance.MainMenu();
     }
 
 }

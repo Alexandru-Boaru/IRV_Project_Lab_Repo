@@ -72,7 +72,7 @@ public class CharacterShooter : MonoBehaviour
 
     public virtual void Shoot()
     {
-        if (LevelManager.instance.isPaused)
+        if (LevelManager.instance.isPaused || PlayerStats.instance.dead)
             return;
         if (ammoLeft <= 0)
         {

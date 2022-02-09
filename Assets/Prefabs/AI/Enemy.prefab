@@ -5324,8 +5324,8 @@ GameObject:
   - component: {fileID: 8137080321719107331}
   - component: {fileID: 8137080321719107343}
   - component: {fileID: 8137080321719107340}
-  - component: {fileID: 8137080321719107341}
   - component: {fileID: 8137080321719107332}
+  - component: {fileID: 4865184471412010968}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
@@ -5476,21 +5476,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &8137080321719107341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8137080321719107333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa518db37e954a54ea0ed93c65449f98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitPoints: 10
-  maxHitPoints: 0
-  dead: 0
 --- !u!195 &8137080321719107332
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5513,6 +5498,22 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &4865184471412010968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8137080321719107333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a81fd0a3c52f754089f137a5b081199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPoints: 10
+  maxHitPoints: 10
+  dead: 0
+  rewardPoints: 100
 --- !u!1001 &8655289450995265029
 PrefabInstance:
   m_ObjectHideFlags: 0

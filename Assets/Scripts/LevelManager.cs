@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour
 
     public bool isPaused;
     public bool canBePaused;
-    public int currentLevel = 0;
+    public int currentLevel = 1;
 
     public static LevelManager instance;
 
@@ -20,6 +20,7 @@ public class LevelManager : MonoBehaviour
     public Animator anim;
 
     public GameObject player;
+    public GameObject playerPref;
 
     void Awake()
     {
@@ -122,6 +123,8 @@ public class LevelManager : MonoBehaviour
         player.transform.position = gl.GetStartingPosition();
         Debug.Log("Hehehe " + player.transform.position);
         player.SetActive(true);
+        PlayerStats.instance.ShowQuestUI(SceneManager.GetActiveScene().buildIndex == 1);
+        GameplayManager.instance.SetCardsToCollect(currentLevel);
         ResumeGame();
         //animate transition to maze
         //activate player
@@ -130,8 +133,11 @@ public class LevelManager : MonoBehaviour
 
     public void EndLevel()
     {
+
         //freeze all rigibodies
         //animate transition to train
+        Time.timeScale = 0;
+        NextLevel();
     }
 
     public void NewGame()
@@ -143,7 +149,7 @@ public class LevelManager : MonoBehaviour
         }
         GameplayManager.instance.ResetCards();
         GameplayManager.instance.ResetScore();
-        currentLevel = 0;
+        currentLevel = 1;
         LoadLevel(mazeSceneID, currentLevel);
     }
 
@@ -151,7 +157,7 @@ public class LevelManager : MonoBehaviour
     {
         GameplayManager.instance.ResetCards();
         GameplayManager.instance.ResetScore();
-        currentLevel = 0;
+        currentLevel = 1;
         LoadLevel(0, currentLevel);
     }
 
@@ -180,6 +186,8 @@ public class LevelManager : MonoBehaviour
             //}
         }
 
+        if (PlayerStats.instance == null)
+            Instantiate(playerPref);
         //if(SceneManager.GetActiveScene().buildIndex == 1 && GameplayManager.instance.cards == 4)
         //{
 

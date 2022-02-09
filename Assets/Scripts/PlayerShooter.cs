@@ -56,6 +56,16 @@ public class PlayerShooter : CharacterShooter
         SetGun(0);
     }
 
+    public void ResetPlayerGun()
+    {
+        guns.Clear();
+        foreach (GunScriptableObject gunObj in gunObjects)
+        {
+            guns.Add(gunObj.initializeGunSpecs(gun));
+        }
+        SetGun(0);
+    }
+
     // Update is called once per frame
     protected override void Update()
     {

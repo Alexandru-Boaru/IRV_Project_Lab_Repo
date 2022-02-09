@@ -992,17 +992,6 @@ MonoBehaviour:
   dead: 0
   brokenProp: {fileID: 3597336662386957570, guid: 7cb75ef2a0942e6408a89553062a7a45, type: 3}
   rigidB: {fileID: 0}
---- !u!114 &634717861 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3055844323807040168, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
-  m_PrefabInstance: {fileID: 7304598119039236680}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6000ca35b7a6bc84db86baa0866d6794, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &783138629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1363,6 +1352,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e12dfaca2e2303459c7412c9defe9a0, type: 3}
+--- !u!114 &1462393790 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2017852445, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
+  m_PrefabInstance: {fileID: 7304598119039236680}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6000ca35b7a6bc84db86baa0866d6794, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1560352334
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2113,7 +2113,7 @@ MonoBehaviour:
   fillHpBar: {fileID: 0}
   invincible: 0
   invincibilityTimer: 0
-  instance: {fileID: 0}
+  scoreText: {fileID: 0}
 --- !u!1 &2102757461
 GameObject:
   m_ObjectHideFlags: 0
@@ -2274,7 +2274,7 @@ PrefabInstance:
     - target: {fileID: 7304598118948585845, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
       propertyPath: audioController
       value: 
-      objectReference: {fileID: 634717861}
+      objectReference: {fileID: 1462393790}
     - target: {fileID: 7304598118948585845, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
       propertyPath: guns.Array.data[0].gunSoundName
       value: P_Shoot
