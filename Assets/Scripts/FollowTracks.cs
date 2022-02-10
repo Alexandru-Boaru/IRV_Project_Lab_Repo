@@ -10,6 +10,7 @@ public class FollowTracks : MonoBehaviour
     float distanceTravelled = 0;
     float velocityDampening = 3.5f;
     float friction = 3.0f;
+    public bool gotPlayer = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,5 +25,12 @@ public class FollowTracks : MonoBehaviour
         transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled) * Quaternion.Euler(0, 0, 90.0f);
         speed += (transform.position.y - newPos.y) * velocityDampening - friction * Time.deltaTime;
         speed = Mathf.Max(2.0f, speed);
+        if (PlayerStats.instance != null)
+        {
+            PlayerStats.instance.gameObject.transform.position = transform.position + transform.up;
+            PlayerStats.instance.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            //PlayerStats.instance.gameObject.transform.SetParent(transform);
+            //gotPlayer = true;
+        }
     }
 }

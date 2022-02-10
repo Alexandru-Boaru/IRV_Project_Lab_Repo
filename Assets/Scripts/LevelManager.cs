@@ -113,19 +113,31 @@ public class LevelManager : MonoBehaviour
         //StartCoroutine(StartPlayer());
         GenerateLevel gl = null;
         Debug.Log("RIIII");
-        while (!(gl != null && gl.checkLoadCompletion()))
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            gl = FindObjectOfType<GenerateLevel>();
-            Debug.Log("bumbum");
-            yield return null;
+            while (!(gl != null && gl.checkLoadCompletion()))
+            {
+                gl = FindObjectOfType<GenerateLevel>();
+                Debug.Log("bumbum");
+                yield return null;
+            }
+            player.transform.position = gl.GetStartingPosition();
+            Debug.Log("Hehehe " + player.transform.position);
         }
 
-        player.transform.position = gl.GetStartingPosition();
-        Debug.Log("Hehehe " + player.transform.position);
+        
         player.SetActive(true);
         PlayerStats.instance.ShowQuestUI(SceneManager.GetActiveScene().buildIndex == 1);
         GameplayManager.instance.SetCardsToCollect(currentLevel);
         ResumeGame();
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            player.GetComponent<PlayerMotion>().Freeze(false);
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            player.GetComponent<PlayerMotion>().Freeze(true);
+        }
         //animate transition to maze
         //activate player
         //spawn enemies
