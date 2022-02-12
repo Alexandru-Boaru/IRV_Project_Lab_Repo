@@ -545,7 +545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23afaff6391584443a828dd606697cf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty: 2
+  difficulty: 5
   upperDifficultyBound: 30
   piecesSize: 31
   requiredCollectables: 5
@@ -559,6 +559,7 @@ MonoBehaviour:
   mazeParent: {fileID: 1924328071}
   collectableParent: {fileID: 806842957}
   collectable: {fileID: 1347496440016190223, guid: 6ca48eeeb5a510645aebd83d7e4810c5, type: 3}
+  floor: {fileID: 1200819687}
   minimumDistanceBetweenCollectibles: 15
   freePaths:
   - 1111
@@ -724,6 +725,68 @@ MonoBehaviour:
     m_RotationOrder: 4
   rotationLerpTime: 0.01
   invertY: 0
+--- !u!1 &1200819687 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7939915588764806314, guid: 4f6bd0762a4f10d4c848440354c5f964, type: 3}
+  m_PrefabInstance: {fileID: 1284838312}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1284838312
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7939915588764806313, guid: 4f6bd0762a4f10d4c848440354c5f964, type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7939915588764806313, guid: 4f6bd0762a4f10d4c848440354c5f964, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7939915588764806313, guid: 4f6bd0762a4f10d4c848440354c5f964, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7939915588764806313, guid: 4f6bd0762a4f10d4c848440354c5f964, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7939915588764806313, guid: 4f6bd0762a4f10d4c848440354c5f964, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7939915588764806313, guid: 4f6bd0762a4f10d4c848440354c5f964, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7939915588764806313, guid: 4f6bd0762a4f10d4c848440354c5f964, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7939915588764806313, guid: 4f6bd0762a4f10d4c848440354c5f964, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7939915588764806313, guid: 4f6bd0762a4f10d4c848440354c5f964, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7939915588764806313, guid: 4f6bd0762a4f10d4c848440354c5f964, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7939915588764806313, guid: 4f6bd0762a4f10d4c848440354c5f964, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7939915588764806314, guid: 4f6bd0762a4f10d4c848440354c5f964, type: 3}
+      propertyPath: m_Name
+      value: Floor Piece
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4f6bd0762a4f10d4c848440354c5f964, type: 3}
 --- !u!1001 &1448116458
 PrefabInstance:
   m_ObjectHideFlags: 0

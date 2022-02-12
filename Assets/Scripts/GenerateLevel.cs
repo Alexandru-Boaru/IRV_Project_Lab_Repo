@@ -14,6 +14,7 @@ public class GenerateLevel : MonoBehaviour
     public GameObject mazeParent; // object at the top of the maze hierarchy
     public GameObject collectableParent; // object at the top of the collectables hierarchy
     public GameObject collectable;
+    public GameObject floor;
     public float minimumDistanceBetweenCollectibles = 10.0f;
     public string[] freePaths;
     /*
@@ -49,6 +50,8 @@ public class GenerateLevel : MonoBehaviour
 
     public EnemyUnits enemyUnits;
 
+    private float floorMinX = 0, floorMinZ = 0, floorMaxX = 0, floorMaxZ = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +67,20 @@ public class GenerateLevel : MonoBehaviour
             (piecesSize * (int) mazeParent.transform.localScale.x, 0)
         };
         RecursiveGeneration(0, 0, -1);
+        floorMinZ += directionMovements[0].Item2;
+        floorMinX += directionMovements[1].Item1;
+        floorMaxZ += directionMovements[2].Item2;
+        floorMaxX += directionMovements[3].Item1;
+        // Instantiate floor
+        Debug.Log($"{floorMinX} {floorMaxX} {floorMinZ} {floorMaxZ}");
+        Debug.Log($"{piecesSize} {mazeParent.transform.localScale.x} {mazeParent.transform.localScale.z}");
+        floor.transform.position = new Vector3(
+            (floorMaxX + floorMinX) / 2,
+            (floor.transform.position.y),
+            (floorMaxZ + floorMinZ) / 2
+        );
+        floor.transform.localScale = new Vector3((floorMaxX - floorMinX) / piecesSize, 1, (floorMaxZ - floorMinZ) / piecesSize);
+
         GenerateCollectibles();
         GenerateNavMeshes();
         GenerateEnemies();
@@ -107,7 +124,10 @@ public class GenerateLevel : MonoBehaviour
                 }
                 mazeRooms.Add(Instantiate(pieces[chosenPieceIndex], new Vector3(x, 0, z), Quaternion.Euler(0, rotationDir * 90f, 0), mazeParent.transform));
             }
-
+            floorMinX = Mathf.Min(floorMinX, x);
+            floorMinZ = Mathf.Min(floorMinZ, z);
+            floorMaxX = Mathf.Max(floorMaxX, x);
+            floorMaxZ = Mathf.Max(floorMaxZ, z);
             AddInfoToMap(x, z, nextDirections);
         }
 
