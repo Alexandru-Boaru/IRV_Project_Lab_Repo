@@ -8,8 +8,8 @@ public class GenerateLevel : MonoBehaviour
     public int difficulty = 1;
     public int upperDifficultyBound = 30;
     public int piecesSize = 30;
-    public int requiredCollectables; // number of collectibles needed to collect in order to progress
-    public int maxCollectables; // maximum number of spawned collectibles
+    private int requiredCollectables; // number of collectibles needed to collect in order to progress
+    private int maxCollectables; // maximum number of spawned collectibles
     public GameObject[] pieces; // 0 is the default connecting starting piece, the last is the deadend
     public GameObject mazeParent; // object at the top of the maze hierarchy
     public GameObject collectableParent; // object at the top of the collectables hierarchy
@@ -80,7 +80,7 @@ public class GenerateLevel : MonoBehaviour
             (floorMaxZ + floorMinZ) / 2
         );
         floor.transform.localScale = new Vector3((floorMaxX - floorMinX) / piecesSize, 1, (floorMaxZ - floorMinZ) / piecesSize);
-
+        floor.GetComponent<NavMeshSurface>().BuildNavMesh();
         GenerateCollectibles();
         GenerateNavMeshes();
         GenerateEnemies();
@@ -109,7 +109,7 @@ public class GenerateLevel : MonoBehaviour
             currentDirection = (currentDirection + 2) % 4; // we must rotate the down free spot to match the current facing direction
 
             // in this case, generate a deadend
-            if (depth > difficulty * 2 && (depth > difficulty * 4 || Random.Range(0, 4) == 0)) {
+            if (depth > Mathf.Sqrt(difficulty) * 2 && (depth > Mathf.Sqrt(difficulty) * 4 || Random.Range(0, 4) == 0)) {
                 mazeRooms.Add(Instantiate(pieces[chosenPieceIndex], new Vector3(x, 0, z), Quaternion.Euler(0, currentDirection * 90f, 0), mazeParent.transform));
                 nextDirections = Rotate(freePaths[chosenPieceIndex], currentDirection);
             } else {
@@ -139,6 +139,8 @@ public class GenerateLevel : MonoBehaviour
     }
 
     private void GenerateCollectibles() {
+        maxCollectables = difficulty * 2;
+        requiredCollectables = (int) Mathf.Sqrt(maxCollectables);
         Dictionary<(float, float), bool> placedCollectibles = new Dictionary<(float, float), bool>();
         List<(float, float)> spawnedCollectibles = new List<(float, float)>();
         var locations = new List<(float, float)>(map.Keys);
