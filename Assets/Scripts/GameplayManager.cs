@@ -59,6 +59,6 @@ public class GameplayManager : MonoBehaviour
 
     public void SetCardsToCollect(int level)
     {
-        cardsToCollect = (int) Mathf.Sqrt(level * 2) + 1;//3 + Mathf.FloorToInt(Mathf.Log(level, 2));
+        cardsToCollect = (int) Mathf.Sqrt((level + 1) * 2) + 1;//3 + Mathf.FloorToInt(Mathf.Log(level, 2));
     }
 }

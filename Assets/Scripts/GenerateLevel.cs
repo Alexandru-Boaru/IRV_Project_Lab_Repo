@@ -60,7 +60,7 @@ public class GenerateLevel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        difficulty = gameManager.GetComponent<LevelManager>().currentLevel;
+        difficulty = gameManager.GetComponent<LevelManager>().currentLevel + 1;
         difficulty = Mathf.Max(1, Mathf.Min(difficulty, upperDifficultyBound));
         visited = new Dictionary<(int, int), bool>();
         mazeRooms = new List<GameObject>();
