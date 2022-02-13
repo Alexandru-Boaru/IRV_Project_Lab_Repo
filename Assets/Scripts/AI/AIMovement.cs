@@ -20,6 +20,12 @@ public class AIMovement : CharacterMotion
     public LayerMask VisibleLayers;
     public float resetPatrolTime = 10f;
     public float patrolTime = 0f;
+    public float level = 1;
+    [SerializeField] float movementSpeedIncrease = 0.1f;
+    [SerializeField] float attackSpeedIncrease = 0.1f;
+    [SerializeField] float attackDamageIncrease = 0.25f;
+    [SerializeField] float sightRangeIncrease = 0.2f;
+    [SerializeField] float attackRangeIncrease = 0.2f;
 
     Vector3 targetPosition;
     Vector3 patrolPoint;
@@ -31,6 +37,8 @@ public class AIMovement : CharacterMotion
 
     public AudioController audioController;
 
+    LevelManager manager;
+
     void OnEnable()
     {
         targetPosition = transform.position;
@@ -38,18 +46,29 @@ public class AIMovement : CharacterMotion
         SetPatrolPoint();
         shooter = GetComponentInChildren<EnemyShooter>();
         if (audioController == null)
+        {
             audioController = GetComponentInChildren<AudioController>();
+        }
+
+        manager = FindObjectOfType<LevelManager>();
+        if (manager)
+        {
+            level = manager.currentLevel - 1;
+        }
     }
 
-    /*
+
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
-        if (floatingCharacter)
-            rigidbody.useGravity = false;
-        StartCoroutine(OffMeshMovement());
+        shooter.fireRate = Mathf.Clamp(shooter.fireRate - shooter.fireRate * level * attackSpeedIncrease, 0.3f, shooter.fireRate);
+        shooter.damage += (int)(shooter.damage * level * attackDamageIncrease);
+        sightRange += sightRange * level * sightRangeIncrease;
+        //rigidbody = GetComponent<Rigidbody>();
+        //if (floatingCharacter)
+        //    rigidbody.useGravity = false;
+        //StartCoroutine(OffMeshMovement());
     }
-    */
+
 
     private void Update()
     {
@@ -124,7 +143,7 @@ public class AIMovement : CharacterMotion
             (playerInSight && Vector2.Distance(transform2D, player2D) > attackRange - 1)) // If seeing player but not close enough to shoot
                                                                                                         // (also some extra distance to be able to keep shooting)
         {
-            agent.speed = moveSpeed;
+            agent.speed = moveSpeed + moveSpeed * level * movementSpeedIncrease;
             agent.destination = targetPosition;
             patrolTime = resetPatrolTime;
         }
@@ -182,7 +201,7 @@ public class AIMovement : CharacterMotion
 
         
 
-        playerInRange = Vector3.Distance(transform.position, player.position) < attackRange;
+        playerInRange = Vector3.Distance(transform.position, player.position) < attackRange + attackRange * level * attackRangeIncrease;
 
         if (playerInSight && playerInRange)
         {

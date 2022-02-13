@@ -5459,6 +5459,11 @@ MonoBehaviour:
     m_Bits: 5057
   resetPatrolTime: 10
   patrolTime: 0
+  level: 1
+  movementSpeedIncrease: 0.1
+  attackSpeedIncrease: 0.1
+  attackDamageIncrease: 0.25
+  sightRangeIncrease: 0.2
   audioController: {fileID: 0}
 --- !u!195 &8137080321719107332
 NavMeshAgent:
