@@ -52,9 +52,15 @@ public class GenerateLevel : MonoBehaviour
 
     private float floorMinX = 0, floorMinZ = 0, floorMaxX = 0, floorMaxZ = 0;
 
+    public GameObject gameManager;
+
+    public GameObject[] ammos;
+    public GameObject[] heals;
+
     // Start is called before the first frame update
     void Start()
     {
+        difficulty = gameManager.GetComponent<LevelManager>().currentLevel;
         difficulty = Mathf.Max(1, Mathf.Min(difficulty, upperDifficultyBound));
         visited = new Dictionary<(int, int), bool>();
         mazeRooms = new List<GameObject>();
@@ -138,7 +144,7 @@ public class GenerateLevel : MonoBehaviour
 
     private void GenerateCollectibles() {
         maxCollectables = difficulty * 2;
-        requiredCollectables = (int) Mathf.Sqrt(maxCollectables);
+        requiredCollectables = (int) Mathf.Sqrt(maxCollectables) + 1;
         Dictionary<(float, float), bool> placedCollectibles = new Dictionary<(float, float), bool>();
         List<(float, float)> spawnedCollectibles = new List<(float, float)>();
         var locations = new List<(float, float)>(map.Keys);
@@ -146,7 +152,7 @@ public class GenerateLevel : MonoBehaviour
         int guaranteedFreeBounds = (this.piecesSize - 2 * (this.piecesSize - 1) / 6) / 2;
         int guaranteedNoClipWallsBounds = (int) (guaranteedFreeBounds - collectableParent.transform.localScale.y);
         float roomXCoord, roomZCoord, spawnX, spawnZ;
-        for (int i = 0; i < maxCollectables; ++i) {
+        for (int i = 0; i < 3 * maxCollectables; ++i) {
             // get a random room
             (roomXCoord, roomZCoord) = locations[Random.Range(0, map.Keys.Count)];
             // get a random coord in this room which doesn't clip into a wall
@@ -168,13 +174,29 @@ public class GenerateLevel : MonoBehaviour
                 continue;
             }
 
-            GameObject collObj = Instantiate(collectable, new Vector3(spawnX, 0, spawnZ), Quaternion.identity, collectableParent.transform);
+            GameObject whatToSpawn = i < maxCollectables
+                                     ? collectable :
+                                     i < 2 * maxCollectables
+                                        ? ammos[Random.Range(0, ammos.Length)]
+                                        : heals[
+                                            Random.Range(0, 2) == 0
+                                                ? 0
+                                                : Random.Range(0, 2) == 0
+                                                    ? 1
+                                                    : Random.Range(0, 2) == 0
+                                                        ? 2
+                                                        : 3
+                                        ];
+
+            GameObject collObj = Instantiate(whatToSpawn, new Vector3(spawnX, 0, spawnZ), Quaternion.identity, collectableParent.transform);
             /* make the collectible responsive to scaling */
             collObj.transform.localPosition = new Vector3(
                     collObj.transform.localPosition.x,
                     0.5f + 2.5f / collectableParent.transform.localScale.y,
                     collObj.transform.localPosition.z
             );
+            if (i >= maxCollectables)
+                collObj.transform.localScale /= 5;
             spawnedCollectibles.Add((spawnX, spawnZ));
         }
     }

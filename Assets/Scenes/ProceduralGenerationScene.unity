@@ -548,8 +548,6 @@ MonoBehaviour:
   difficulty: 5
   upperDifficultyBound: 30
   piecesSize: 31
-  requiredCollectables: 5
-  maxCollectables: 40
   pieces:
   - {fileID: 7939915588764806314, guid: 365cba184beeae6479f7252604c36519, type: 3}
   - {fileID: 7939915588764806314, guid: 0d5fe362a044c7c449b77a952dde9158, type: 3}
@@ -568,6 +566,16 @@ MonoBehaviour:
   - 1001
   - 1000
   enemyUnits: {fileID: 11400000, guid: 70de67f18ff78a341a7d6e492b610edd, type: 2}
+  gameManager: {fileID: 1403486106}
+  ammos:
+  - {fileID: 6051503051025713105, guid: 253d8e12834cf524f9b6647bbbb5d2f9, type: 3}
+  - {fileID: 2250338194450172211, guid: 671ee100f1143764e9a1e1dc76a701b7, type: 3}
+  - {fileID: 2638056451109872508, guid: 514b70187386a794da8bf5512133e7a9, type: 3}
+  heals:
+  - {fileID: 8475726593500419234, guid: bf9e229be0e40d542970660229097100, type: 3}
+  - {fileID: 4947906784142106573, guid: c19b8287c435d8f4680661768af8716a, type: 3}
+  - {fileID: 5494542585489734161, guid: 0600015c28920fd459d4c12a3397df45, type: 3}
+  - {fileID: 2971471966776082174, guid: fea6f2200a005f94fbf5ad6a690976fa, type: 3}
 --- !u!1 &1192184900
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,6 +795,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f6bd0762a4f10d4c848440354c5f964, type: 3}
+--- !u!1 &1403486106 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 122291272782422277, guid: 4f48b4ecbfb02924395b8e06eafa27ac, type: 3}
+  m_PrefabInstance: {fileID: 1959725043}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1448116458
 PrefabInstance:
   m_ObjectHideFlags: 0

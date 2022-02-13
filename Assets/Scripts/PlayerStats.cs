@@ -15,6 +15,7 @@ public class PlayerStats : EntityStats
     public TextMeshProUGUI questText;
     public static PlayerStats instance;
     public GameObject gameOverPanel;
+    private bool isQuestCollect = true;
 
     private void Awake()
     {
@@ -79,12 +80,16 @@ public class PlayerStats : EntityStats
     private void Update()
     {
         scoreText.text = ("Score: " + (GameplayManager.instance==null?"0":GameplayManager.instance.score.ToString()));
-        questText.text = $"Collect blue boxes ({GameplayManager.instance.cards}/{GameplayManager.instance.cardsToCollect})";
+        questText.text = isQuestCollect ?
+            $"Collect blue boxes ({GameplayManager.instance.cards}/{GameplayManager.instance.cardsToCollect})":
+            "Shoot the targets!";
     }
 
     public void ShowQuestUI(bool status)
     {
-        questText.gameObject.SetActive(status);
+        isQuestCollect = status;
+        return;
+        //questText.gameObject.SetActive(status);
     }
 
     public void NewGame()

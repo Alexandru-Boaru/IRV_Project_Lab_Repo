@@ -11,16 +11,19 @@ public class FollowTracks : MonoBehaviour
     float velocityDampening = 3.5f;
     float friction = 3.0f;
     public bool gotPlayer = false;
+    public GameObject[] targetPrefabs;
     private Quaternion targetRotation = Quaternion.identity;
     private RollerCoasterTracksGenerator rctg;
     private bool ready = false;
     public GameObject levelEnd;
     private float bumper = 8e-1f;
     private GameObject cubeLevelEnd;
+    private float targetCooldown, targetMaxCooldown = 2.0f;
     // Start is called before the first frame update
     void Start()
     {
         rctg = pathCreator.gameObject.GetComponent<RollerCoasterTracksGenerator>();
+        targetCooldown = targetMaxCooldown;
     }
 
     // Update is called once per frame
@@ -41,7 +44,19 @@ public class FollowTracks : MonoBehaviour
             }
         }
         if (cubeLevelEnd != null)
-            cubeLevelEnd.transform.localPosition = Vector3.zero;
+            cubeLevelEnd.transform.localPosition = Vector3.zero + Vector3.up / 2;
+        targetCooldown -= Time.deltaTime;
+        if (targetCooldown <= 0) {
+            targetCooldown = targetMaxCooldown;
+            Vector3 position = transform.position +
+                               Vector3.right * Random.Range(10.0f, 20.0f) * (Random.Range(0, 2) == 0 ? -1 : 1) +
+                               Vector3.up * Random.Range(0f, 10.0f);
+            Instantiate(
+                targetPrefabs[Random.Range(0, targetPrefabs.Length)],
+                position,
+                Quaternion.LookRotation(position - transform.position) * Quaternion.Euler(0, 90f, 0)
+            );
+        }
         distanceTravelled += speed * Time.deltaTime;
         transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled);
         Vector3 newPos = pathCreator.path.GetPointAtDistance(distanceTravelled + speed * Time.deltaTime);
