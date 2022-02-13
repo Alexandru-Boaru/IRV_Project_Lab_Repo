@@ -203,7 +203,7 @@ public class GenerateLevel : MonoBehaviour
         foreach (GameObject go in mazeRooms)
         {
             GameObject er = enemyUnits.GetRandomEnemy();
-            Instantiate(er, go.transform, false);
+            Instantiate(er, go.transform.position + new Vector3(0,4,0), Quaternion.identity, go.transform);
         }
     }
 

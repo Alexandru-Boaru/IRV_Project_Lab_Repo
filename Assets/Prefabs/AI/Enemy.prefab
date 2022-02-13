@@ -5323,9 +5323,9 @@ GameObject:
   - component: {fileID: 8137080321719107328}
   - component: {fileID: 8137080321719107331}
   - component: {fileID: 8137080321719107343}
-  - component: {fileID: 8137080321719107340}
   - component: {fileID: 8137080321719107332}
   - component: {fileID: 4865184471412010968}
+  - component: {fileID: 6097701592606532273}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
@@ -5427,7 +5427,7 @@ MonoBehaviour:
   moveSpeed: 3
   speedMultipler: 1
   moveDir: {x: 0, y: 0, z: 0}
-  rigidbody: {fileID: 8137080321719107340}
+  rigidbody: {fileID: 6097701592606532273}
   capsule: {fileID: 8137080321719107331}
   groundedThreshold: 0.48
   grounded: 0
@@ -5460,22 +5460,6 @@ MonoBehaviour:
   resetPatrolTime: 10
   patrolTime: 0
   audioController: {fileID: 0}
---- !u!54 &8137080321719107340
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8137080321719107333}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: Infinity
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!195 &8137080321719107332
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5514,6 +5498,22 @@ MonoBehaviour:
   maxHitPoints: 10
   dead: 0
   rewardPoints: 100
+--- !u!54 &6097701592606532273
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8137080321719107333}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: Infinity
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 1
 --- !u!1001 &8655289450995265029
 PrefabInstance:
   m_ObjectHideFlags: 0
