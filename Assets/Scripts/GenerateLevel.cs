@@ -72,8 +72,6 @@ public class GenerateLevel : MonoBehaviour
         floorMaxZ += directionMovements[2].Item2;
         floorMaxX += directionMovements[3].Item1;
         // Instantiate floor
-        Debug.Log($"{floorMinX} {floorMaxX} {floorMinZ} {floorMaxZ}");
-        Debug.Log($"{piecesSize} {mazeParent.transform.localScale.x} {mazeParent.transform.localScale.z}");
         floor.transform.position = new Vector3(
             (floorMaxX + floorMinX) / 2,
             (floor.transform.position.y),

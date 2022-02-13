@@ -8,23 +8,33 @@ public class RollerCoasterTracksGenerator : MonoBehaviour
 {
     private BezierPath bezierPath;
     // Start is called before the first frame update
+    private bool loaded = false;
     void Start()
     {
         bezierPath = new BezierPath(Vector3.zero);
+        bezierPath.ControlPointMode = BezierPath.ControlMode.Automatic;
+        bezierPath.AutoControlLength = 0;
+        bezierPath.NotifyPathModified();
+        StraightTracks();
         for (int i = 0; i < 15; ++i) {
             if (Random.Range(0, 10) < 5)
-                NonLoopTrackGenerator(Random.Range(7, 10), Random.Range(-3.5f, 3.5f));
-            else if (Random.Range(0, 4) != 3) {
-                CurvatureTrackGenerator(Random.Range(7, 10), Random.Range(0, 2), Random.Range(0, 2));
-                NonLoopTrackGenerator(Random.Range(7, 10), 0);
+                StraightTracks();
+            else if (Random.Range(0, 4) < 2) {
+                ElevationChange();
+                StraightTracks();
             } else {
-
+                SideLoop();
+                StraightTracks();
+                StraightTracks();
             }
         }
-        bezierPath.ControlPointMode = BezierPath.ControlMode.Automatic;
+        StraightTracks();
+        bezierPath.ResetNormalAngles();
+        bezierPath.DeleteSegment(0);
         bezierPath.NotifyPathModified();
         gameObject.GetComponent<PathCreator>().bezierPath = bezierPath;
         gameObject.GetComponent<RoadMeshCreator>().TriggerUpdate();
+        loaded = true;
     }
 
     // Update is called once per frame
@@ -32,31 +42,97 @@ public class RollerCoasterTracksGenerator : MonoBehaviour
     {
     }
 
-    private void NonLoopTrackGenerator(int noPoints, float inclination) {
+    private void StraightTracks() {
+        int noPoints = Random.Range(3, 5);
         Vector3 lastPoint = bezierPath.GetPoint(bezierPath.NumPoints - 1);
         for (int i = 0; i < noPoints; ++i) {
             lastPoint = new Vector3(
                 lastPoint.x,
-                lastPoint.y + inclination / noPoints,
-                lastPoint.z + 1.0f
+                lastPoint.y,
+                lastPoint.z + 1
             );
             bezierPath.AddSegmentToEnd(lastPoint);
             bezierPath.NotifyPathModified();
         }
     }
 
-    private void CurvatureTrackGenerator(int noPoints, float inclination, float curvature) {
+    /*
+
+    private void ElevationChange() {
+        Vector3 lastPoint = bezierPath.GetPoint(bezierPath.NumPoints - 1);
+        float elevation = Random.Range(2.5f, 3.5f) * (Random.Range(0, 2) == 0 ? -1 : 1);
+        int noPointsRamp = 10;
+        for (int j = 0; j < 2; ++j) {
+            for (int i = 0; i < noPointsRamp; ++i) {
+                lastPoint = new Vector3(
+                    lastPoint.x,
+                    lastPoint.y + elevation / noPointsRamp * (j == 0 ? 1 : -1),
+                    lastPoint.z + 0.2f
+                );
+                bezierPath.AddSegmentToEnd(lastPoint);
+                bezierPath.NotifyPathModified();
+            }
+            for (int i = 0; i < 2; ++i) {
+                lastPoint = new Vector3(
+                    lastPoint.x,
+                    lastPoint.y,
+                    lastPoint.z + 1
+                );
+                bezierPath.AddSegmentToEnd(lastPoint);
+                bezierPath.NotifyPathModified();
+            }
+        }
+    }
+
+    */
+
+    private void ElevationChange() {
         Vector3 lastPoint = bezierPath.GetPoint(bezierPath.NumPoints - 1);
         Vector3 lastPointCache = bezierPath.GetPoint(bezierPath.NumPoints - 1);
-        inclination = Random.Range(3.0f, 5f) * (inclination == 0 ? -1 : 1);
-        for (int i = 0; i < noPoints; ++i) {
+        float elevation = Random.Range(2.5f, 3.5f) * (Random.Range(0, 2) == 0 ? -1 : 1);
+        int noPointsRamp = 50;
+        for (int j = 0; j < 2; ++j) {
+            for (int i = 0; i <= noPointsRamp; ++i) {
+                lastPoint = new Vector3(
+                    lastPoint.x,
+                    lastPointCache.y + elevation * Mathf.Sin(Mathf.PI / 2 * i / noPointsRamp) * (j == 0 ? 1 : -1),
+                    lastPointCache.z + 3.0f * i / noPointsRamp
+                );
+                bezierPath.AddSegmentToEnd(lastPoint);
+                bezierPath.NotifyPathModified();
+            }
+            for (int i = 0; i < 2; ++i) {
+                lastPoint = new Vector3(
+                    lastPoint.x,
+                    lastPoint.y,
+                    lastPoint.z + 1
+                );
+                bezierPath.AddSegmentToEnd(lastPoint);
+                bezierPath.NotifyPathModified();
+            }
+            lastPointCache = lastPoint;
+        }
+    }
+
+    private void SideLoop() {
+        Vector3 lastPoint = bezierPath.GetPoint(bezierPath.NumPoints - 1);
+        Vector3 lastPointCache = bezierPath.GetPoint(bezierPath.NumPoints - 1);
+        int noPointsCircle = 50;
+        float elevation = Random.Range(2.5f, 3.0f) * (Random.Range(0, 2) == 0 ? -1 : 1);
+        float offset = Random.Range(2.0f, 3.0f);
+        int changeOnXAxis = Random.Range(0, 2) == 0 ? -1 : 1;
+        for (int i = 0; i <= noPointsCircle; ++i) {
             lastPoint = new Vector3(
-                lastPointCache.x + noPoints * Mathf.Sin(Mathf.PI / 2 / noPoints * i) * (curvature == 0 ? -1 : 1),
-                lastPoint.y + inclination / noPoints,
-                lastPointCache.z + noPoints * Mathf.Cos(Mathf.PI / 2 / noPoints * i)
+                lastPointCache.x + offset * Mathf.Sin(2f * Mathf.PI * i / noPointsCircle) * changeOnXAxis,
+                lastPoint.y + elevation / (noPointsCircle + 1),
+                lastPointCache.z + offset * Mathf.Cos(2f * Mathf.PI * i / noPointsCircle)
             );
             bezierPath.AddSegmentToEnd(lastPoint);
             bezierPath.NotifyPathModified();
         }
+    }
+
+    public bool CheckCompletion() {
+        return loaded;
     }
 }
