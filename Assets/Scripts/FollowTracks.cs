@@ -44,13 +44,14 @@ public class FollowTracks : MonoBehaviour
             }
         }
         if (cubeLevelEnd != null)
-            cubeLevelEnd.transform.localPosition = Vector3.zero + Vector3.up / 2;
+            cubeLevelEnd.transform.localPosition = Vector3.up / 15;
         targetCooldown -= Time.deltaTime;
         if (targetCooldown <= 0) {
             targetCooldown = targetMaxCooldown;
             Vector3 position = transform.position +
                                Vector3.right * Random.Range(10.0f, 20.0f) * (Random.Range(0, 2) == 0 ? -1 : 1) +
-                               Vector3.up * Random.Range(0f, 10.0f);
+                               Vector3.up * Random.Range(0f, 10.0f) +
+                               Vector3.forward * 15;
             Instantiate(
                 targetPrefabs[Random.Range(0, targetPrefabs.Length)],
                 position,

@@ -52,15 +52,13 @@ public class GenerateLevel : MonoBehaviour
 
     private float floorMinX = 0, floorMinZ = 0, floorMaxX = 0, floorMaxZ = 0;
 
-    public GameObject gameManager;
-
     public GameObject[] ammos;
     public GameObject[] heals;
 
     // Start is called before the first frame update
     void Start()
     {
-        difficulty = gameManager.GetComponent<LevelManager>().currentLevel;
+        difficulty = LevelManager.instance.currentLevel;
         difficulty = Mathf.Max(1, Mathf.Min(difficulty, upperDifficultyBound));
         visited = new Dictionary<(int, int), bool>();
         mazeRooms = new List<GameObject>();
