@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class AIMovement : CharacterMotion
 {
+    [SerializeField] EnemyStats stats;
     [SerializeField] float attackRange = 5f;
     [SerializeField] float sightRange = 10f;
     [SerializeField] float patrolRange = 4f;
@@ -26,6 +27,7 @@ public class AIMovement : CharacterMotion
     [SerializeField] float attackDamageIncrease = 0.25f;
     [SerializeField] float sightRangeIncrease = 0.2f;
     [SerializeField] float attackRangeIncrease = 0.2f;
+    [SerializeField] float healthIncrease = 0.2f;
 
     Vector3 targetPosition;
     Vector3 patrolPoint;
@@ -60,9 +62,13 @@ public class AIMovement : CharacterMotion
 
     void Start()
     {
+        // Update stats based on level
         shooter.fireRate = Mathf.Clamp(shooter.fireRate - shooter.fireRate * level * attackSpeedIncrease, 0.3f, shooter.fireRate);
         shooter.damage += (int)(shooter.damage * level * attackDamageIncrease);
         sightRange += sightRange * level * sightRangeIncrease;
+        attackRange += attackRange * level * attackRangeIncrease;
+        stats.maxHitPoints += (int)(stats.hitPoints * level * healthIncrease);
+        stats.hitPoints = stats.maxHitPoints;
         //rigidbody = GetComponent<Rigidbody>();
         //if (floatingCharacter)
         //    rigidbody.useGravity = false;
@@ -201,7 +207,7 @@ public class AIMovement : CharacterMotion
 
         
 
-        playerInRange = Vector3.Distance(transform.position, player.position) < attackRange + attackRange * level * attackRangeIncrease;
+        playerInRange = Vector3.Distance(transform.position, player.position) < attackRange;
 
         if (playerInSight && playerInRange)
         {

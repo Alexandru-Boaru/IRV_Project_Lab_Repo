@@ -5440,6 +5440,7 @@ MonoBehaviour:
   slopeForce: 0
   slopeForceRayLength: 0
   floatingCharacter: 0
+  stats: {fileID: 4865184471412010968}
   attackRange: 4
   sightRange: 10
   patrolRange: 4
@@ -5464,6 +5465,8 @@ MonoBehaviour:
   attackSpeedIncrease: 0.1
   attackDamageIncrease: 0.25
   sightRangeIncrease: 0.2
+  attackRangeIncrease: 0.2
+  healthIncrease: 0.2
   audioController: {fileID: 0}
 --- !u!195 &8137080321719107332
 NavMeshAgent:
