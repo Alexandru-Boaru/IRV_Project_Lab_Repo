@@ -30,7 +30,6 @@ public class EnemySpawner : MonoBehaviour
     {
         if (spawnedEnemy != null)
         {
-            //Debug.Log(state);
             spawnedEnemy.SetActive(state);
         }
     }

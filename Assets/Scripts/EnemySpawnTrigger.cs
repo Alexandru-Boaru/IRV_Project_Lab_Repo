@@ -37,7 +37,6 @@ public class EnemySpawnTrigger : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            //Debug.Log("gosh");
             if (spawned)
             {
                 foreach (EnemySpawner es in spawners)

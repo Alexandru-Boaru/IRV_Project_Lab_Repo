@@ -7,7 +7,6 @@ using TMPro;
 public class GunUIManager : MonoBehaviour
 {
     public PlayerShooter ps;
-    //public Sprite bulletSprite;
     public int maxBullets = 100;
     public RectTransform bulletBar;
     public GridLayoutGroup bulletGrid;
@@ -44,7 +43,6 @@ public class GunUIManager : MonoBehaviour
         float h = bulletBar.sizeDelta.y;
         float bw = w / mb;
         bulletGrid.cellSize = new Vector2(bw, h);
-        // Debug.Log(bulletPieces.Count + " " + maxBullets);
         for (int i = 0; i < maxBullets; i++)
         {
             if (i < lb)

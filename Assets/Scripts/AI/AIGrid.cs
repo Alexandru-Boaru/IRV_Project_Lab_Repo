@@ -37,7 +37,6 @@ public class AIGrid : MonoBehaviour
 
     private void Update()
     {
-        //RefreshChunks();
     }
 
     private void LateUpdate()
@@ -46,7 +45,6 @@ public class AIGrid : MonoBehaviour
         {
 			chunk.refreshed = false;
         }
-		//RefreshChunks();
 	}
 
 	void RefreshChunks()
@@ -128,12 +126,10 @@ public class AIGrid : MonoBehaviour
 				node.strenght = 1;
 			}
 
-			//Debug.Log(node.enemyName+ "  "+ Physics.OverlapSphere(worldPoint, nodeRadius, enemyMask).Length);
 		}
 		else
 		{
 			node.status = AINode.Status.OBSTACLE;
-	//		node.enemyName = "";
 			node.enemyName = Physics.OverlapSphere(worldPoint, nodeRadius, unwalkableMask)[0].name;
 			node.strenght = 0;
 		}

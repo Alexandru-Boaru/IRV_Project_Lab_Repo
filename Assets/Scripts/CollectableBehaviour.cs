@@ -20,7 +20,6 @@ public class CollectableBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log(collision.gameObject.layer + " " + LayerMask.NameToLayer("Player"));
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && !collected)
         {
             collected = true;

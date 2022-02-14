@@ -30,7 +30,6 @@ public class CharacterMotion : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         if (floatingCharacter)
             rigidbody.useGravity = false;
-        //capsule = GetComponent<CapsuleCollider>();
     }
 
     public void CheckGrounded()
@@ -54,7 +53,6 @@ public class CharacterMotion : MonoBehaviour
                     Debug.DrawLine(ray.origin, ray.origin + ray.direction * 2f * groundedThreshold, Color.red);
             }
         }
-        //animator.SetBool("Grounded", grounded);
     }
 
     public virtual void ApplyMovement()
@@ -64,15 +62,9 @@ public class CharacterMotion : MonoBehaviour
         {
             finalMoveDir += Vector3.down * slopeForce;
         }
-        /*
-        rigidbody.velocity = moveDir * moveSpeed * Time.deltaTime;
-        rigidbody.velocity = new Vector3(rigidbody.velocity.x,
-                                         velY,
-                                         rigidbody.velocity.z);
-                                         */
+ 
         float velY = rigidbody.velocity.y;
 
-        //rigidbody.MovePosition(transform.position + finalMoveDir);
         rigidbody.velocity = finalMoveDir;
         if (!floatingCharacter)
         {
@@ -105,16 +97,7 @@ public class CharacterMotion : MonoBehaviour
 
                 ray.origin = rayOrigin + offset;
                 Gizmos.DrawSphere(ray.origin, 0.1f);
-                //Gizmos.DrawLine(ray.origin, ray.origin + Vector3.down * 2f * groundedThreshold);
-                /*
-                if (Physics.Raycast(ray, 2f * groundedThreshold))
-                {
-                    grounded = true;
-                    Debug.DrawLine(ray.origin, ray.origin + ray.direction * 2f * groundedThreshold, Color.green);
-                }
-                else
-                    Debug.DrawLine(ray.origin, ray.origin + ray.direction * 2f * groundedThreshold, Color.red);
-                    */
+                
             }
         }
         Gizmos.color = Color.blue;

@@ -16,7 +16,6 @@ public class CharacterShooter : MonoBehaviour
     public float accuracyRingDistance;
     public bool autoFire;
 
-    //public Vector3 viewOffset;
 
     public LayerMask targetLayers;
     public LayerMask damageLayers;
@@ -24,7 +23,6 @@ public class CharacterShooter : MonoBehaviour
     public int maxNumberOfRounds;
     public int numberOfRounds;
     public int ammoSize;
-    //[SerializeField]
     public int ammoLeft;
     public int ammoTotal;
     [SerializeField]
@@ -32,7 +30,6 @@ public class CharacterShooter : MonoBehaviour
     public float rechargingCooldown;
 
     public GameObject bulletHolePrefab;
-    //public int maxBulletHoles = 100;
     public ObjectPooler objectPooler;
     [Min(0)]
     public float timeToDestroyHole;
@@ -101,13 +98,8 @@ public class CharacterShooter : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(origin.position, currentShootDir, out hit, range, targetLayers.value))
                 {
-                    Debug.Log(hit.transform.name);
                     bulletHolePosition = hit.point + hit.normal * 0.001f;
-                    /*
-                    GameObject bh = Instantiate(bulletHolePrefab, bulletHolePosition, Quaternion.LookRotation(hit.normal));
-                    bh.transform.SetParent(hit.transform, true);
-                    Destroy(bh, timeToDestroyHole);
-                    */
+                    
                     objectPooler.SpawnFromPool("bullet", bulletHolePosition, Quaternion.LookRotation(hit.normal), hit.transform);
                     if ((1 << hit.transform.gameObject.layer & damageLayers.value) != 0)
                     {
@@ -141,7 +133,6 @@ public class CharacterShooter : MonoBehaviour
     IEnumerator LineEffectCounter()
     {
         yield return new WaitForSeconds(lineEffectTime);
-        //Debug.Log("Boo");
         for (int i = 0; i < numberOfRounds; i++)
         {
             roundLines[i].SetActive(false);

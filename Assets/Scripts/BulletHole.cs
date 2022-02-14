@@ -25,7 +25,6 @@ public class BulletHole : MonoBehaviour, IPooledObject
 
         cs.sourceTransform = parent;
         cs.weight = 1;
-        //pc.RemoveSource(index);
         pc.constraintActive = false;
         pc.locked = false;
         pc.SetSource(0, cs);
@@ -35,8 +34,7 @@ public class BulletHole : MonoBehaviour, IPooledObject
         pc.SetRotationOffset(index, (Quaternion.Inverse(parent.rotation) * transform.rotation).eulerAngles);
         pc.locked = true;
         pc.constraintActive = true;
-        //Debug.Log("Roar");
-        //yield return new WaitForSeconds(timeToLive);
+;
         float t = timeToLive;
         while (t > 0)
         {
@@ -52,6 +50,5 @@ public class BulletHole : MonoBehaviour, IPooledObject
         gameObject.SetActive(false);
         pc.constraintActive = false;
         pc.locked = false;
-        //pc.RemoveSource(index);
     }
 }

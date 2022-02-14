@@ -24,8 +24,6 @@ public class LevelManager : MonoBehaviour
 
     void Awake()
     {
-        //LevelManager[] objs = FindObjectsOfType<LevelManager>();
-
         if (instance == null)
         {
             instance = this;
@@ -39,14 +37,12 @@ public class LevelManager : MonoBehaviour
     }
     void OnEnable()
     {
-        Debug.Log("OnEnable called");
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        //launch menu UI
     }
 
     public void PauseGame()
@@ -55,16 +51,14 @@ public class LevelManager : MonoBehaviour
             return;
         isPaused = true;
         Cursor.lockState = CursorLockMode.None;
-        //freeze all rigibodies
-        //put up menu
+
     }
 
     public void ResumeGame()
     {
         isPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
-        //unfreeze all rigidbodies
-        //put down menu
+
     }
 
     public void NextLevel()
@@ -90,14 +84,7 @@ public class LevelManager : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1;
         SceneManager.LoadScene(id);
-        
-        //Spawn player in train
-        //Run train
-        //Randomly spawn flying enemies
-        //Generate maze
-        //Add obstacles prefabs
-        //Add enemies spawn points
-        //Add collectibles
+       
     }
 
     public IEnumerator StartLevel()
@@ -107,22 +94,16 @@ public class LevelManager : MonoBehaviour
         {
             yield return null;
         }
-        //player.SetActive(true);
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        Debug.Log(SceneManager.GetActiveScene().buildIndex.ToString() + " cretin");
-        //StartCoroutine(StartPlayer());
         GenerateLevel gl = null;
-        Debug.Log("RIIII");
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             while (!(gl != null && gl.checkLoadCompletion()))
             {
                 gl = FindObjectOfType<GenerateLevel>();
-                Debug.Log("bumbum");
                 yield return null;
             }
             player.transform.position = gl.GetStartingPosition();
-            Debug.Log("Hehehe " + player.transform.position);
         }
 
         
@@ -138,16 +119,11 @@ public class LevelManager : MonoBehaviour
         {
             player.GetComponent<PlayerMotion>().Freeze(true);
         }
-        //animate transition to maze
-        //activate player
-        //spawn enemies
+
     }
 
     public void EndLevel()
     {
-
-        //freeze all rigibodies
-        //animate transition to train
         Time.timeScale = 0;
         NextLevel();
     }
@@ -157,7 +133,6 @@ public class LevelManager : MonoBehaviour
         if (player != null)
         {
             player.SetActive(false);
-            Debug.Log("heiihiehei");
         }
         GameplayManager.instance.ResetCards();
         GameplayManager.instance.ResetScore();
@@ -190,37 +165,14 @@ public class LevelManager : MonoBehaviour
         }
         if (SceneManager.GetActiveScene().buildIndex == 1 && !player.activeInHierarchy)
         {
-            //GenerateLevel gl = FindObjectOfType<GenerateLevel>();
-            //if (gl != null && gl.checkLoadCompletion())
-            //{
-            //    player.transform.position = gl.GetStartingPosition();
-            //    player.SetActive(true);
-            //}
+            //
         }
 
         if (PlayerStats.instance == null)
             Instantiate(playerPref);
-        //if(SceneManager.GetActiveScene().buildIndex == 1 && GameplayManager.instance.cards == 4)
-        //{
-
-        //}
+        
     }
 
-    //public IEnumerator StartPlayer()
-    //{
-        //GenerateLevel gl = null;
-        //Debug.Log("RIIII");
-        //while (!(gl != null && gl.checkLoadCompletion()))
-        //{
-        //    gl = FindObjectOfType<GenerateLevel>();
-        //    Debug.Log("bumbum");
-        //    yield return null;
-        //}
-        
-        //player.transform.position = gl.GetStartingPosition();
-        //Debug.Log("Hehehe " + player.transform.position);
-        //player.SetActive(true);
-    //}
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -232,9 +184,7 @@ public class LevelManager : MonoBehaviour
         {
             canBePaused = false;
         }
-        Debug.Log(scene.buildIndex.ToString() + " cretin");
 
-        //player.transform.position = Vector3.zero;
         if (scene.buildIndex > 0)
             Cursor.lockState = CursorLockMode.Locked;
         else
@@ -247,7 +197,6 @@ public class LevelManager : MonoBehaviour
 
     void OnDisable()
     {
-        Debug.Log("OnDisable");
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

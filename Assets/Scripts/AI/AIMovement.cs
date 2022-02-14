@@ -155,37 +155,13 @@ public class AIMovement : CharacterMotion
         }
         else if (!playerInSight)
         {
-            //agent.destination = transform.position;
             agent.speed = moveSpeed * patrolSpeedPercentage;
             patrolTime = resetPatrolTime;
             UpdatePatrolDestination();
         }
     }
 
-    /*
-    IEnumerator OffMeshMovement()
-    {
-        while (true)
-        {
-            if (agent.isOnOffMeshLink)
-            {
-                yield return StartCoroutine(NormalSpeed(agent));
-            }
-            yield return null;
-        }
-    }
-
-    IEnumerator NormalSpeed(NavMeshAgent agent)
-    {
-        OffMeshLinkData data = agent.currentOffMeshLinkData;
-        Vector3 endPos = data.endPos + Vector3.up * agent.baseOffset;
-        while (agent.transform.position != endPos)
-        {
-            agent.transform.position = Vector3.MoveTowards(agent.transform.position, endPos, agent.speed * Time.deltaTime);
-            yield return null;
-        }
-    }
-    */
+    
     private void OnDrawGizmos()
     {
         //Gizmos.DrawRay(transform.position, transform.InverseTransformPoint(player.position));
