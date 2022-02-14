@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class GenerateLevel : MonoBehaviour
 {
     public int difficulty = 1;
-    public int upperDifficultyBound = 30;
+    public int upperDifficultyBound = 100;
     public int piecesSize = 30;
     private int requiredCollectables; // number of collectibles needed to collect in order to progress
     private int maxCollectables; // maximum number of spawned collectibles
@@ -141,7 +141,7 @@ public class GenerateLevel : MonoBehaviour
     }
 
     private void GenerateCollectibles() {
-        maxCollectables = difficulty * 2;
+        maxCollectables = (int) Mathf.Sqrt(difficulty) * 2;
         requiredCollectables = (int) Mathf.Sqrt(maxCollectables) + 1;
         Dictionary<(float, float), bool> placedCollectibles = new Dictionary<(float, float), bool>();
         List<(float, float)> spawnedCollectibles = new List<(float, float)>();
