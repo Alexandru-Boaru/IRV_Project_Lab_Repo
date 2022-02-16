@@ -1825,12 +1825,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -2173,6 +2173,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1863345825976669630, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -44.500244
+      objectReference: {fileID: 0}
     - target: {fileID: 7304598119453385739, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2220,6 +2224,10 @@ PrefabInstance:
     - target: {fileID: 7304598119453385740, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8661506470208225994, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -24.000122
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f1a9b2174f836840acfceaa723c50ec, type: 3}
